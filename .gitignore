@@ -17,6 +17,10 @@ Results/DHS_imputed.csv
 Results/processed_data_for_child_analysis.csv
 Results/FINAL/DHS_imputed.csv
 
+# Files exceeding GitHub 100MB limit
+Accord/final_analysis_data_continuous.csv
+Accord/alliance_2018.pdf
+
 # LaTeX build artifacts
 *.aux
 *.log
