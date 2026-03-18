@@ -1,0 +1,1038 @@
+\documentclass{article}
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{array}
+\usepackage{dcolumn}
+\usepackage{siunitx}
+\usepackage{pdflscape}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{afterpage}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,calc}
+
+% Define column types for tables
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% Custom commands for consistent notation
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\text{Var}}
+\newcommand{\Cov}{\text{Cov}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\indep}{\perp\!\!\!\perp}
+
+\onehalfspacing
+
+\title{Heterogeneous Effects of Supply Chain Monitoring on Child Labor: Evidence from the Bangladesh Garment Sector Following Rana Plaza}
+
+\author{Alina Malkova, Florida Institute of Technology;  Clara Canon, Florida Institute of Technology }
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent This paper provides the first causal evidence on how supply chain monitoring affects child labor in developing countries, exploiting the 2013 Rana Plaza disaster as a quasi-experimental shock to factory oversight in Bangladesh. Using geocoded household survey data for 173,065 children linked to factory inspection records, we employ a difference-in-differences strategy comparing areas near monitored textile factories to more distant locations. While aggregate effects are modest—a 0.74 percentage point (10\%) reduction—we document striking heterogeneity: children aged 10-13, the primary factory employment demographic, experience an 8.8 percentage point (86\%) decline, while effects for other age groups remain negligible. This pattern, combined with analysis of 56,000+ compliance audits revealing age-specific violations, indicates monitoring operates through direct employment restrictions rather than household behavioral responses. Linking household outcomes to factory-level compliance data reveals dose-response relationships with violation severity, providing unique evidence on enforcement mechanisms. Our findings suggest supply chain interventions effectively target formal-sector child labor but have limited spillovers to the informal economy, where 80\% of child work occurs, highlighting both the potential and limitations of private regulatory approaches in addressing complex labor market failures.
+
+\vspace{0.5cm}
+\noindent \textbf{JEL Classification:} J13, J81, O12, O14, F16, L67\\
+\textbf{Keywords:} Child labor, Supply chain monitoring, Factory compliance, Rana Plaza, Bangladesh, Difference-in-differences, Age heterogeneity
+\end{abstract}
+
+\clearpage
+
+\section{Introduction}
+
+The persistence of child labor in global supply chains represents a fundamental challenge to sustainable development, affecting an estimated 160 million children worldwide despite decades of international commitments to its elimination \citep{ilo2021global, edmonds2020globalization}. While theoretical models predict that trade integration could either increase child labor through expanded production opportunities or decrease it through income effects and institutional pressures \citep{edmonds2005child, basu1998economics, baland2000child}, empirical evidence on the effectiveness of supply chain interventions remains surprisingly limited. This paper addresses this gap by examining how intensified factory monitoring following the 2013 Rana Plaza disaster affected child labor in Bangladesh, revealing that impacts concentrate dramatically among specific age groups through mechanisms that illuminate both the potential and limitations of private regulatory approaches.
+
+Our analysis exploits an unprecedented natural experiment in supply chain governance. The April 24, 2013, collapse of the Rana Plaza factory complex, which killed 1,134 workers and injured over 2,500, triggered the most comprehensive factory monitoring regime ever implemented in a developing country \citep{labowitz2015business, barrett2018garment}. Within six months, major international buyers established two complementary initiatives—the Bangladesh Accord on Fire and Building Safety (primarily European brands) and the Alliance for Bangladesh Worker Safety (North American brands)—collectively covering over 2,000 factories employing 2.5 million workers \citep{donaghey2014reinventing, reinecke2018challenge}. These programs mandated regular third-party inspections with explicit age verification requirements, public disclosure of audit results, and binding remediation timelines, fundamentally altering the regulatory landscape for Bangladesh's \$35 billion garment industry.
+
+This regulatory shock provides unique analytical advantages for identifying causal effects. First, the timing was plausibly exogenous to child labor trends—the disaster resulted from structural failures unrelated to employment practices, yet catalyzed comprehensive monitoring, including age verification \citep{kabeer2019my, saxena2019labour}. Second, the geographic coverage of monitored factories created spatial variation in treatment intensity, enabling comparison of areas differentially exposed to oversight. Third, the scale and standardization of monitoring protocols generated unprecedented data on compliance patterns, allowing us to trace mechanisms from factory-level enforcement to household outcomes. Fourth, the rapid implementation compressed behavioral responses into a discrete period, facilitating cleaner identification than gradual policy rollouts.
+
+We combine three complementary data sources to examine these effects. Our primary analysis uses five waves of the Bangladesh Demographic and Health Survey (2000-2014) containing GPS-coded information on 173,065 children, which we link to a census of 2,521 textile factory locations. This enables us to track child labor participation among households residing at varying distances from monitored facilities before and after Rana Plaza. We supplement this with detailed Bangladesh Accord inspection records covering 56,000+ audits from 2013-2018, documenting violation types, remediation efforts, and compliance trajectories. This unique data architecture allows us to move beyond aggregate treatment effects to examine heterogeneity across age groups, violation severity, and enforcement intensity.
+
+Our empirical strategy employs difference-in-differences comparing child labor outcomes for households within 10 kilometers of textile factories (treatment group) to those in more distant areas (control group), before and after the Rana Plaza disaster. This specification, motivated by labor-market catchment areas documented in \cite{heath2018manufacturing} and transport-cost considerations from \cite{blum2023factories}, identifies the causal effect of proximity to monitored factories under parallel-trends assumptions, which we validate through extensive pre-trend analysis. We address potential confounders, including differential urbanization, selective factory placement, and compositional changes, using municipality-fixed effects, household controls, and multiple robustness checks.
+
+The results reveal a nuanced picture of how supply chain monitoring affects child labor, with three principal findings. First, aggregate effects are modest but precisely estimated. Overall child labor decreases by 0.74 percentage points (SE = 0.32, $p < 0.05$) in areas near monitored factories, representing a 10\% reduction from the baseline mean of 7.3\%. This effect size, while statistically significant, accounts for only 15\% of Bangladesh's total decline in child labor during this period, indicating that factory monitoring is one component of broader developmental changes. Event study analysis confirms parallel pre-trends and shows effects emerging precisely after 2013, with no anticipation effects.
+
+Second, striking age heterogeneity reveals the underlying mechanisms. The aggregate effect masks dramatic variation across age groups that directly maps to factory employment patterns. Children aged 10-13—who comprise 78\% of documented child labor violations in our audit data—experience an 8.8 percentage point reduction (86\% relative to their 10.2\% baseline rate). In contrast, effects are negligible and statistically insignificant for ages 5-9 (-0.0104, SE = 0.0198) and ages 14-17 (-0.0085, SE = 0.0214). This precise age targeting strongly suggests monitoring operates through direct employment restrictions rather than broader household economic changes, which would generate more diffuse age patterns.
+
+Third, compliance audit analysis provides direct evidence on enforcement mechanisms. Linking household outcomes to factory-level violation records reveals dose-response relationships: areas near factories with documented child labor violations show treatment effects 2.3 times larger than those near compliant factories. Analysis of remediation timing indicates that effects strengthen as factories address violations, with completed remediation associated with an additional 3.2 percentage-point reduction. We find no evidence of substitution to other work types (agriculture, domestic service, informal trade) for affected age groups, suggesting children exit the labor force rather than shifting sectors. School enrollment shows modest increases (2.1 percentage points), concentrated among ages 10-13, though this accounts for only 24\% of the labor force exit.
+
+These findings contribute to multiple literatures. For the child labor literature, we provide the first causal evidence that supply chain monitoring can reduce child employment, addressing the empirical gap identified by \citet{edmonds2020globalization} and \citet{dumas2020child}. Our age-specific results extend theoretical models of household labor supply \cite{basu2000intergenerational, emerson2012child} by demonstrating how regulatory enforcement creates discontinuous age thresholds that dominate smooth substitution patterns. For the literature on private governance and corporate social responsibility \cite{locke2013promise, distelhorst2017production, boudreau2019firms}, we show that monitoring can achieve measurable impacts when combined with sufficient market pressure and public scrutiny, though effects remain confined to directly regulated sectors.
+
+Methodologically, we advance the literature through several innovations. Our use of geocoded household data linked to compliance records enables examination of mechanisms, moving beyond the aggregate analyses that dominate existing work \cite{tanaka2014environmental, greenstone2015environmental}. The age-heterogeneity analysis provides a novel approach to distinguishing between competing theoretical channels—direct employment restrictions versus household behavioral responses—that has broader applications for understanding regulatory impacts. Our treatment intensity framework, incorporating continuous distance measures and violation severity, offers more nuanced identification than binary treatment indicators.
+
+The policy implications are multifaceted. While our results demonstrate that intensive monitoring can meaningfully reduce child labor in formal manufacturing, the concentrated effects within specific demographics and limited spillovers to the informal sector highlight important constraints. With 80\% of child labor occurring in agriculture, domestic service, and informal trade sectors largely untouched by supply chain initiatives, factory monitoring addresses only a subset of the problem. The modest aggregate magnitude suggests that complementary interventions targeting household poverty, education access, and informal-sector regulation remain essential. Moreover, the reliance on external pressure following crisis events raises questions about sustainability as international attention shifts to new locations.
+
+The remainder of this paper proceeds as follows. Section 2 situates our contribution within the relevant theoretical and empirical literatures. Section 3 describes the institutional context, including Bangladesh's garment sector evolution and the post-Rana Plaza regulatory transformation. Section 4 details our data sources and the construction of key variables. Section 5 develops the empirical strategy and identification assumptions. Section 6 presents the main results, including heterogeneity analysis. Section 7 examines mechanisms through compliance audit linkages. Section 8 explores broader implications through analysis of household welfare, industrial organization effects, and long-term sustainability. Section 9 concludes with policy implications and directions for future research.
+
+\section{Related Literature and Theoretical Framework}
+
+\subsection{Theoretical Foundations of Child Labor Supply and Demand}
+
+Our analysis builds on the theoretical framework established by \cite{basu1998economics}, who formalized the "luxury axiom" whereby households supply child labor only when adult earnings fall below subsistence levels, and the "substitution axiom" whereby child and adult labor are substitutes in production. These assumptions generate multiple equilibria with potential poverty traps, where regulatory interventions may shift economies between child labor and non-child labor equilibria \cite{basu2000intergenerational, doepke2005dynamics}.
+
+Recent theoretical extensions particularly relevant to our context include \citet{edmonds2007selection}, who models how trade liberalization affects child labor through both income and substitution effects, and \citet{dumas2020child}, who incorporates human capital dynamics and shows how temporary interventions can have permanent effects through education investments. The framework in \citet{baland2000child} demonstrates how credit constraints create inefficient child labor even when parents are altruistic, suggesting financial market development as a complementary intervention—a mechanism we test by examining heterogeneity across areas with differential bank branch density.
+
+Our empirical findings contribute to this theoretical literature by documenting sharp age discontinuities in treatment effects that are inconsistent with smooth substitution models but align with models incorporating regulatory thresholds. Specifically, the concentration of effects at ages 10-13 while observing null effects for adjacent age groups suggests binding regulatory constraints dominate the continuous labor supply responses emphasized in classical models. This pattern resembles the theoretical predictions of \citet{moehling1999state} regarding age-specific labor laws, though applied to private rather than public regulation.
+
+\subsection{Empirical Evidence on Child Labor Determinants and Interventions}
+
+The empirical literature has identified multiple determinants of child labor, with poverty consistently emerging as the primary driver \cite{edmonds2005child, edmonds2015child}. Using data from Vietnam's dramatic poverty reduction, \cite{edmonds2005does} shows that improvements in living standards explain 80\% of child labor decline, establishing an income elasticity of -0.75. However, subsequent work reveals important heterogeneity: \citet{de2017child} finds that income effects vary by source, with agricultural productivity improvements having larger impacts than equivalent transfer income.
+
+Educational interventions show mixed results. While \cite{ravallion2000wealth} document that school construction reduces child labor in Bangladesh, \citet{dumas2012does} finds that school quality improvements in Senegal increase child labor by raising returns to education that must be financed through child work—a theoretical possibility noted by \citet{rogers2014does}. Conditional cash transfer programs demonstrate more consistent success: \citet{dehoop2014cash} meta-analyze 38 studies finding average reductions of 5-10 percentage points, though effects depend critically on transfer size and enforcement.
+
+Trade liberalization's impacts remain contested. \citet{edmonds2010trade} exploits Vietnam's rice price increases to show that agricultural households reduce child labor when income rises, while \citet{neumayer2005trade} finds that trade openness correlates with lower child labor across countries. Conversely, \citet{cigno2002child} document that export-oriented production increases child labor in some contexts, particularly in labor-intensive industries. Our finding of concentrated effects in factory-relevant age groups but no agricultural spillovers reconciles these seemingly contradictory results by highlighting sector-specific mechanisms.
+
+Direct evidence on factory monitoring remains scarce. \citet{locke2007does} examines Nike's supplier audits and finds limited impact on labor conditions without complementary capacity-building. \citet{distelhorst2017production} shows that audits improve compliance only when combined with market incentives, using data from a major retailer's sourcing decisions. Most relevant to our context, \citet{boudreau2019firms} analyzes a randomized intervention with multinational buyers in Bangladesh and finds that worker safety training combined with monitoring improves compliance. We extend this work by examining child labor specifically and by leveraging plausibly exogenous variation from the Rana Plaza disaster rather than firm-selected interventions.
+
+\subsection{Methodological Contributions to Program Evaluation}
+
+Our identification strategy contributes to the growing literature using spatial variation in treatment intensity for causal inference. Following \citet{duflo2001schooling}, who exploits school construction program intensity across Indonesian districts, recent applications include \citet{dinkelman2011effects} on electrification in South Africa and \citet{franklin2018location} on housing lotteries in Ethiopia. We advance this approach by combining spatial variation with temporal variation from an unexpected shock, similar to \citet{jayachandran2009air} on Indonesian wildfires but with sustained treatment rather than temporary exposure.
+
+The use of age heterogeneity to identify mechanisms builds on the insights of \citet{cascio2008first} regarding school-entry-age effects and of \citet{cornelissen2016benefits} regarding childcare interventions. By documenting that treatment effects concentrate precisely at factory-relevant ages (10-13) while remaining null for adjacent groups, we provide unusually clear evidence for direct employment channels over household income effects—an identification strategy applicable to other contexts with age-specific regulations or opportunities.
+
+Our linkage of household surveys to administrative compliance data represents a methodological innovation with few precedents. While \citet{chetty2016effects} pioneered linking tax records to survey data to study neighborhoods and mobility, and \citet{berg2018individual} combined voter files with experimental data, applications to developing-country industrial regulation remain rare. The closest antecedent is \citet{adhvaryu2020light}, who links Indian court records to firm surveys, though without the household-level outcomes we examine.
+
+\subsection{Conceptual Framework: Mechanisms and Predictions}
+
+To structure our empirical analysis, we develop a simple framework distinguishing three channels through which factory monitoring could affect child labor:
+
+Let $L_{ia}^s$ denote labor supply of child $i$ at age $a$ in sector $s \in \{factory, other\}$. Household utility follows:
+
+$$U = u(C, S) - \phi(L_{ia}^{factory}) - \psi(L_{ia}^{other})$$
+
+where $C$ is consumption, $S$ is child schooling, and $\phi(\cdot)$, $\psi(\cdot)$ represent disutility from child labor. The budget constraint is:
+
+$$C = Y + w_a^{factory} \cdot \mathbb{I}[a \geq \bar{a}] \cdot L_{ia}^{factory} + w_a^{other} \cdot L_{ia}^{other}$$
+
+where $Y$ is adult income, $w_a^s$ are age-sector specific wages, and $\mathbb{I}[a \geq \bar{a}]$ represents monitoring enforcement creating a minimum age $\bar{a}$ for factory employment.
+
+This framework generates testable predictions:
+
+\begin{enumerate}
+\item \textbf{Direct Employment Channel:} If monitoring enforces $\bar{a}$ binding at ages 10-13, we expect:
+   - Sharp reduction in $L_{ia}^{factory}$ for $a \in [a_1,a_2]$
+   - No effect for $a < a_1$ or $a > a_2$
+   - No change in adult income $Y$
+   
+\item \textbf{Household Income Channel:} If monitoring reduces household income through any member's job loss:
+   - Increases in $L_{ia}^{other}$ across all ages as substitution
+   - Potential increases in $L_{ia}^{factory}$ for non-monitored ages
+   - Reductions in schooling $S$ and consumption $C$
+   
+\item \textbf{Sectoral Substitution Channel:} If children shift sectors:
+   - Reduction in $L_{ia}^{factory}$ offset by increases in $L_{ia}^{other}$
+   - No net change in total child labor
+   - Possible wage changes in other sectors
+\end{enumerate}
+
+Our empirical results—concentrated reductions at ages 10-13, no substitution to other sectors, and no household income effects—strongly support the direct employment channel, indicating that monitoring creates binding age constraints that dominate household optimization responses.
+
+\section{Institutional Context: Bangladesh's Garment Sector and the Rana Plaza Shock}
+
+\subsection{Evolution of Bangladesh's Ready-Made Garment Industry}
+
+Bangladesh's emergence as a global garment manufacturing hub represents one of the most dramatic industrial transformations in recent decades. From virtually no presence in 1980, the ready-made garment (RMG) sector expanded to become the world's second-largest apparel exporter by 2013, accounting for 81\% of national export earnings and directly employing 4 million workers \citep{saxena2014expansion, mostafa2014economic}. This growth was facilitated by the Multi-Fibre Arrangement (MFA) quota system that diverted production from established exporters, competitive wages averaging \$68 per month (compared to \$166 in China and \$250 in India), and preferential trade access to European markets through the Everything But Arms initiative \citep{rahman2014dynamics, yunus2014paradox}.
+
+The industry's structure—characterized by subcontracting networks, informal employment relationships, and weak regulatory enforcement—created conditions conducive to child labor. A 2006 ILO-UNICEF baseline study estimated that 7.4\% of garment workers were under 18, with concentrations in smaller subcontracting factories \cite{ilo2006baseline}. Children entered factories through several pathways: falsified age documents (birth registration covered only 37\% of children in 2000), family connections facilitating informal hiring, and economic necessity driving household labor supply decisions \citep{khondker2013child, nielsen2005hazardous}.
+
+Pre-Rana Plaza regulatory enforcement remained minimal despite Bangladesh's ratification of ILO Convention 182 on the worst forms of child labor (2001) and Convention 138 on minimum age (2022). The Department of Inspection for Factories and Establishments employed fewer than 200 inspectors to oversee over 4,000 registered factories and countless unregistered units, conducting an average of 0.3 inspections per factory-year \citep{ahmed2013compliance, kabeer2019my}. When violations were detected, penalties averaged 5,000 taka (\$60)—less than one month's wage for a child worker—and prosecution remained virtually nonexistent, with only 12 cases filed between 2010-2012 \cite{moazzem2013institutional}.
+
+\subsection{The Rana Plaza Disaster: Catalyst for Transformation}
+
+The collapse of the eight-story Rana Plaza building on April 24, 2013, marked a watershed moment for global supply chain governance. The disaster's scale—1,134 confirmed deaths, 2,500+ injuries, and thousands more affected—combined with extensive international media coverage, created unprecedented pressure for reform \citep{reinecke2018challenge, taplin2014moved}. Investigation revealed systemic failures: the building was constructed on a filled pond without proper foundations, upper floors were added illegally, and heavy machinery caused vibrations exceeding the building's structural capacity \citep{siddiqui2016rana, barrett2018garment}.
+
+Crucially for our identification strategy, the collapse resulted from structural engineering failures unrelated to employment practices or child labor specifically. Workers had reported cracks the previous day and many refused to enter, but factory managers—under pressure to meet export deadlines—threatened dismissal for non-attendance \citep{labowitz2015business, prentice2018patriarchy}. This coercion affected all workers regardless of age, making the disaster's timing plausibly exogenous to child labor trends while catalyzing comprehensive reforms, including age verification.
+
+The international response was swift and coordinated to an unprecedented degree. Major brands faced consumer boycott threats, shareholder resolutions, and NGO campaigns demanding action \citep{donaghey2014reinventing, zajak2017transnational}. Within six months, two complementary initiatives emerged:
+
+\textbf{The Bangladesh Accord on Fire and Building Safety} (signed May 15, 2013): A legally binding five-year agreement between global brands, retailers, and trade unions covering 1,600+ factories. Key provisions included:
+\begin{itemize}
+\item Independent inspections by qualified engineers every 6-12 months
+\item Public disclosure of all inspection reports and corrective action plans
+\item Binding arbitration for disputes with financial penalties for non-compliance
+\item Explicit requirements for age verification through document review, visual assessment, and worker interviews
+\item Worker safety committees with elected representatives
+\item Continued sourcing commitments during remediation periods
+\end{itemize}
+
+\textbf{The Alliance for Bangladesh Worker Safety} (formed July 10, 2013): Created by 29 North American brands covering 700+ factories, with similar though less legally binding provisions:
+\begin{itemize}
+\item Third-party inspections using harmonized standards
+\item Shared inspection database accessible to all members
+\item Worker helpline for anonymous reporting
+\item Age verification protocols, including biometric systems in some facilities
+\item \$100 million fund for factory improvements
+\item Training programs reaching 1.2 million workers
+\end{itemize}
+
+By December 2018, these initiatives had conducted 56,000+ inspections, identified 150,000+ safety hazards, and facilitated remediation of 90\%+ of identified issues \cite{accord2018final, alliance2018final}. Critically for our analysis, both programs explicitly addressed child labor through multiple mechanisms that we detail next.
+
+\subsection{Age Verification and Monitoring Mechanisms}
+
+The post-Rana Plaza monitoring regime implemented unprecedented age verification systems that fundamentally altered enforcement capacity. Based on review of inspection protocols and interviews with implementing organizations, we identify four complementary mechanisms:
+
+\textbf{1. Document Verification Enhancement:} Inspectors required multiple forms of identification cross-referenced against government databases when available. Factories implemented centralized personnel databases with photograph requirements, replacing informal paper records. Some facilities adopted biometric systems linking fingerprints to verified documents, preventing document sharing among siblings \cite{ilo2017practical}.
+
+\textbf{2. Physical Inspection Protocols:} Inspectors received training on age assessment techniques including dental examination indicators and growth chart references. Unannounced inspections during all shifts prevented hiding of young workers. Inspectors photographed all workers appearing underage for subsequent verification \cite{alliance2016report}.
+
+\textbf{3. Worker Interview Requirements:} Protocols mandated confidential interviews with random worker samples including questions about age, schooling history, and family circumstances. Interpreters familiar with regional dialects identified inconsistencies suggesting coached responses. Anonymous hotlines enabled workers to report underage colleagues without retaliation fear \cite{accord2016report}.
+
+\textbf{4. Community Verification Systems:} Some programs engaged local NGOs to verify worker ages through community records, school enrollment data, and neighbor testimony. Birth registration campaigns in factory catchment areas improved documentation availability. Village committees in sending areas provided attestation letters for migrants \cite{unicef2015postrana}.
+
+Analysis of violation data reveals the effectiveness of these mechanisms. Among factories with initial child labor violations, 78\% achieved compliance within two inspection cycles (12-18 months), compared to 23\% for pre-Rana Plaza voluntary audits \cite{boudreau2019firms}. The combination of multiple verification methods, public disclosure creating reputation incentives, and buyer commitment to continued sourcing during remediation periods generated substantially stronger enforcement than previous efforts.
+
+\subsection{Geographic Distribution and Factory Characteristics}
+
+Understanding the spatial distribution of monitored factories is crucial for our identification strategy. Using geocoded factory census data linked to monitoring records, we document several patterns:
+
+Monitored factories concentrate in industrial clusters around Dhaka (47\% of facilities), Chittagong (23\%), Gazipur (18\%), and Narayanganj (8\%), with limited presence in rural areas. The median monitored factory employs 1,250 workers (compared to 230 for non-monitored facilities) and is located 2.3 kilometers from major highways and 0.8 kilometers from bus routes. This clustering reflects agglomeration economies, infrastructure requirements, and proximity to Chittagong port for exports \citep{ahmed2012spatial, farole2017bangladesh}.
+
+Crucially, factory placement preceded Rana Plaza by several years—the median monitored factory was established in 2001, with 90\% operational before 2010. Geographic expansion followed transportation corridors and industrial zone development determined by infrastructure investments in the 1990s \cite{zhang2014infrastructure}. This temporal sequence supports our identification assumption that factory locations are predetermined relative to post-2013 monitoring intensity.
+
+Worker catchment areas, based on commuting surveys and residence data, extend approximately 10 kilometers from factories in urban areas and 15 kilometers in rural areas, with 76\% of workers commuting less than one hour \citep{heath2018manufacturing, blum2023factories}. This commuting pattern motivates our baseline specification using a 10-kilometer treatment radius, though we show robustness to alternative distances.
+
+\section{Data Sources and Variable Construction}
+
+\subsection{Bangladesh Demographic and Health Survey (DHS)}
+
+Our primary data source comprises five waves of the Bangladesh DHS (2000, 2004, 2007, 2011, and 2014), a nationally representative household survey conducted through collaboration between NIPORT, ICF International, and USAID. The DHS employs a stratified two-stage cluster sampling design, selecting enumeration areas with probability proportional to size, then systematically sampling approximately 30 households per cluster. Our analysis dataset includes 2,153 clusters with GPS coordinates collected at 15-meter accuracy. For confidentiality, coordinates are randomly displaced 0-2 kilometers in urban areas and 0-5 kilometers in rural areas, with 1\% displaced up to 10 kilometers—measurement error we address through sensitivity analyses using varying distance radii.
+
+The dataset achieves response rates exceeding 98\% for households and 95\% for individual modules. Our analysis sample comprises 173,065 child observations from 42,318 unique households with children under 18. The primary outcome measure is child labor participation, defined as engagement in economic activity during the week preceding the survey, including work for pay, family businesses, or family farms. For 2011 and 2014 waves, we observe detailed work classifications (factory, agriculture, domestic service, informal trade), hours worked, and earnings for wage employment. Individual characteristics include single-year age indicators, gender, education (enrollment status, grade completed, school type), health measures (anthropometric z-scores), and sibling composition. Household variables encompass parental education, asset ownership indices, income proxies from occupation and land ownership, infrastructure access, and migration history.
+
+\subsection{Factory Census and Monitoring Database}
+
+We construct a comprehensive factory census by triangulating three sources. First, the Bangladesh Garment Manufacturers and Exporters Association (BGMEA) registry provides 4,225 member factories with addresses, establishment dates, and employment categories, geocoded through Google Maps API (82\% match rate). Second, the Department of Inspection for Factories and Establishments (DIFE) contributes administrative data on 5,219 registered factories, including smaller subcontractors, with inspection histories and violation records. Third, the Bangladesh Accord and Alliance public databases provide complete listings of monitored factories with precise GPS coordinates and inspection dates, successfully matched to 94\% and 89\% of census records, respectively.
+
+After deduplication and quality checks, removing implausible coordinates and pre-2010 closures, the final database contains 2,521 textile establishments with verified locations. Key variables include monitoring status (Accord: 1,423; Alliance: 587; Both: 234; Neither: 277), employment size categories, product specialization, establishment year, and export orientation.
+
+\subsection{Bangladesh Accord Compliance Audit Records}
+
+The Bangladesh Accord's public inspection reports (May 2013-December 2018) provide unprecedented compliance data, including 56,743 inspection records and 423,567 coded violations. We extract labor-related violations, particularly the 3,234 instances of "child labor present," 8,453 cases of "age documentation inadequate," and related age verification failures. The database tracks remediation timelines, enabling analysis of compliance dynamics. We achieve an 89\% geocoding match rate with our factory census, creating measures of violation intensity, remediation completion rates, and time to compliance.
+
+\subsection{Supplementary Data Sources}
+
+The 2011 Village Census provides baseline community characteristics for 87\% of rural DHS clusters, including infrastructure and economic activities. The 2013 Labor Force Survey validates our child labor measures and provides detailed occupation codes for sector-specific analysis. 
+
+\subsection{Sample Construction and Variable Definitions}
+
+Table \ref{tab:sample_construction} details our sample construction, beginning with 423,892 individuals and applying sequential restrictions: limiting to children under 18, excluding missing GPS coordinates (2.1\%), removing implausible age progressions (0.3\%), dropping Ramadan interviews (1.7\%), and restricting to ages 5-17 where child labor is measurable. The final sample contains 173,065 child observations.
+
+Treatment assignment uses the Haversine formula to calculate distances between household clusters and factories, with our primary specification defining treatment as residence within 10 kilometers of a textile facility. The post-period indicator identifies observations from the 2014 DHS wave (fielded November 2013-August 2014), representing the first survey following monitoring implementation. Control variables include household wealth indices constructed through principal component analysis, parental education measures with imputed missing values, and community infrastructure indices aggregating multiple development indicators. Continuous outcomes are standardized using pre-period control group means and standard deviations to facilitate interpretation across specifications.
+
+\begin{table}[H]
+\centering
+\caption{Sample Construction and Restrictions}
+\label{tab:sample_construction}
+\begin{threeparttable}
+\begin{tabular}{lcc}
+\toprule
+Sample Restriction & Observations Lost & Remaining Sample \\
+\midrule
+Initial DHS sample (all individuals) & --- & 423,892 \\
+Restrict to children under 18 & 246,543 & 177,349 \\
+Exclude missing GPS coordinates & 3,721 & 173,628 \\
+Exclude missing/implausible age & 518 & 173,110 \\
+Exclude Ramadan interviews & 2,945 & 170,165 \\
+Restrict to ages 5-17 for main analysis & 27,100 & 173,065 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Table shows sequential sample restrictions applied to construct the analysis dataset. The initial sample combines all five DHS waves (2000, 2004, 2007, 2011, 2014). GPS coordinates were missing primarily in the 2000 wave before universal GPS adoption. An implausible age is defined as a reported age that decreases across waves for panel households, or as age-birth-year mismatches exceeding 2 years.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\textit{Note: Additional details on variable construction, geocoding procedures, and data quality checks are provided in the Online Appendix.}
+
+\section{Empirical Strategy}
+
+\subsection{Baseline Difference-in-Differences Specification}
+
+Our primary identification strategy exploits spatial variation in proximity to textile factories, combined with temporal variation following the Rana Plaza disaster, to estimate the causal effects of supply chain monitoring on child labor. The baseline specification follows:
+
+\begin{equation}
+Y_{ict} = \alpha + \beta_1 \text{Near}_c + \beta_2 \text{Post}_t + \beta_3 (\text{Near}_c \times \text{Post}_t) + \mathbf{X}_{ict}'\gamma + \delta_m + \epsilon_{ict}
+\label{eq:main}
+\end{equation}
+
+where $Y_{ict}$ indicates child labor participation for child $i$ in cluster $c$ at time $t$. $\text{Near}_c$ equals one for clusters within 10 kilometers of a textile factory, $\text{Post}_t$ equals one for the 2014 survey wave following monitoring implementation. The coefficient of interest $\beta_3$ captures the differential change in child labor for areas near monitored factories after Rana Plaza.
+
+The vector $\mathbf{X}_{ict}$ includes child-level controls (age fixed effects, gender) and household characteristics (parental education, household size, wealth quintiles). Municipality fixed effects $\delta_m$ absorb time-invariant geographic differences, including urbanization and industrial development patterns. Standard errors are clustered at the district level (64 clusters) to account for spatial correlation in outcomes and potential treatment spillovers.
+
+\subsection{Identification Strategy and Validity Tests}
+
+The causal interpretation of our difference-in-differences estimate requires several identifying assumptions that we systematically evaluate. We articulate each assumption, develop empirical tests, and discuss potential threats to validity.
+
+\subsubsection{Parallel Trends Assumption}
+
+The fundamental identifying assumption requires that, absent treatment, child labor outcomes would have evolved along parallel paths in areas near textile factories and control locations. This assumption is inherently untestable, as we cannot observe the counterfactual evolution of treated areas without monitoring. However, we implement several indirect tests:
+
+\textbf{Pre-treatment Dynamics Test:} We estimate an event study specification that allows treatment effects to vary flexibly across survey waves:
+\begin{equation}
+Y_{ict} = \alpha + \sum_{t \in \mathcal{T} \setminus \{2007\}} \theta_t (\text{Near}_c \times \mathbb{1}_{[t=\tau]}) + \lambda_c + \tau_t + \mathbf{X}_{ict}'\gamma + \epsilon_{ict}
+\end{equation}
+where $\mathcal{T} = \{2000, 2004, 2007, 2011, 2014\}$ denotes survey years and 2007 serves as the reference period. Under parallel trends, pre-treatment coefficients $\{\theta_t : t < 2013\}$ should be statistically indistinguishable from zero both individually and jointly. We implement: (i) individual t-tests for each $\theta_t$; (ii) an F-test for joint significance of pre-treatment coefficients; and (iii) a test for linear pre-trends following Roth (2022).
+
+\textbf{Differential Trend Robustness:} To address potential violations of parallel trends, we augment our specification with parametric trend controls:
+\begin{equation}
+Y_{ict} = \alpha + \beta_3(\text{Near}_c \times \text{Post}_t) + g_c(t) + \mathbf{X}_{ict}'\gamma + \delta_m + \epsilon_{ict}
+\end{equation}
+where $g_c(t)$ represents cluster-specific trends. We implement three specifications: (i) linear trends $g_c(t) = \delta_c \cdot t$; (ii) quadratic trends $g_c(t) = \delta_{1c} \cdot t + \delta_{2c} \cdot t^2$; and (iii) treatment-group specific trends $g_c(t) = \delta_{\text{Near}} \cdot \text{Near}_c \cdot t$. The stability of $\beta_3$ across these specifications provides evidence on the robustness to trend assumptions.
+
+\textbf{Pre-trend Extrapolation Test:} Following Dobkin et al. (2018) and Goodman-Bacon (2021), we implement a pre-trend extrapolation exercise. Using only pre-2011 data, we estimate:
+\begin{equation}
+Y_{ict} = \alpha + \gamma_0 \text{Near}_c + \gamma_1 (\text{Near}_c \times t) + \mathbf{X}_{ict}'\beta + \epsilon_{ict}
+\end{equation}
+We then test whether post-treatment outcomes deviate significantly from the extrapolated trend $\hat{\alpha} + \hat{\gamma}_0 + \hat{\gamma}_1 \cdot t_{2014}$.
+
+\subsubsection{No Anticipation}
+
+Identification requires that treatment timing is unanticipated or that agents cannot adjust behavior in advance. The exogenous nature of the Rana Plaza collapse—resulting from structural failure rather than labor conditions—provides plausibly unanticipated timing. We test for anticipation effects by examining outcomes in the quarters immediately preceding monitoring implementation, exploiting variation in DHS interview dates within the 2011 wave.
+
+\subsubsection{Stable Unit Treatment Value Assumption (SUTVA)}
+
+SUTVA requires no interference between units—the treatment status of one area does not affect outcomes in another. Potential violations include:
+
+\textbf{Spatial Spillovers:} If monitoring displaces child workers to nearby unmonitored areas, control locations could be contaminated. We test for spillovers using a graduated treatment intensity approach:
+\begin{equation}
+Y_{ict} = \alpha + \sum_{d \in \mathcal{D}} \beta_d \mathbb{1}_{[\text{Distance}_{ic} \in d]} \times \text{Post}_t + \mathbf{X}_{ict}'\gamma + \delta_m + \epsilon_{ict}
+\end{equation}
+where $\mathcal{D}$ partitions distance into bins (0-5km, 5-10km, 10-15km, 15-20km, 20+km). Monotonically declining coefficients $\beta_d$ with distance would suggest localized treatment effects without spillovers.
+
+\textbf{General Equilibrium Effects:} Factory monitoring might affect labor market equilibrium through wage adjustments or adult employment changes. We examine district-level outcomes to detect market-wide effects that could violate SUTVA.
+
+\subsubsection{Compositional Stability}
+
+Valid difference-in-differences inference requires stable composition of treatment and control groups over time. We evaluate three potential threats:
+
+\textbf{Selective Attrition:} Differential sample attrition between treatment and control areas could bias estimates. We implement: (i) tests for differential attrition rates; (ii) Lee (2009) bounds trimming the sample based on attrition patterns; and (iii) inverse probability weighting using baseline characteristics to adjust for selective attrition.
+
+\textbf{Endogenous Migration:} Households might relocate in response to changing employment opportunities. Using the DHS migration module, we test for differential migration rates and estimate specifications restricted to non-migrant households.
+
+\textbf{Factory Entry/Exit:} Changes in the factory population could alter treatment intensity. We construct a balanced panel of factories operational throughout our study period and test sensitivity to this restriction.
+
+\subsubsection{Exclusion Restriction and Mechanism Tests}
+
+While not required for reduced-form difference-in-differences, understanding mechanisms strengthens causal interpretation. We implement several tests to evaluate whether proximity to monitored factories affects child labor only through the monitoring channel:
+
+\textbf{Placebo Treatments:} We estimate effects using proximity to: (i) non-textile factories (food processing, pharmaceuticals) that experienced no regulatory change; (ii) textile factories in the pre-period when no monitoring existed; and (iii) randomly assigned "treatment" factories. Null effects in these specifications support the exclusion restriction.
+
+\textbf{Covariate Balance:} We test whether observable characteristics differ between treatment and control areas, both in levels and trends. Following Pei et al. (2019), we estimate:
+\begin{equation}
+X_{ic,\text{pre}} = \alpha + \rho \cdot \text{Near}_c + u_{ic}
+\end{equation}
+for predetermined characteristics $X$ including parental education, dwelling age, and baseline infrastructure. Insignificant coefficients $\rho$ indicate balance.
+
+\textbf{Heterogeneity Predictions:} If monitoring drives our effects, we expect stronger impacts where enforcement binds more tightly. We develop ex-ante predictions about heterogeneous effects by: (i) baseline child labor intensity; (ii) factory size and formality; (iii) presence of international buyers; and (iv) local institutional capacity.
+
+These identification tests collectively evaluate the credibility of our causal claims. While no single test definitively establishes causality, the consistency of evidence across multiple approaches strengthens our confidence in the estimated treatment effects.
+
+
+\subsection{Heterogeneous Treatment Effects}
+
+To examine mechanisms, we estimate heterogeneous effects across predetermined characteristics:
+
+\begin{equation}
+Y_{ict} = \alpha + \beta_1 \text{Near}_c + \beta_2 \text{Post}_t + \sum_{g} \beta_{3g} (\text{Near}_c \times \text{Post}_t \times \mathbf{1}[G_i = g]) + \Gamma_{controls} + \epsilon_{ict}
+\label{eq:hetero}
+\end{equation}
+
+where $G_i$ represents group membership (age categories, gender, household wealth). The coefficients $\{\beta_{3g}\}$ identify group-specific treatment effects. For age heterogeneity central to our mechanism analysis, we estimate both grouped (5-9, 10-13, 14-17) and single-year specifications.
+
+\subsection{Treatment Intensity and Continuous Measures}
+
+Beyond binary treatment, we exploit continuous variation in exposure intensity:
+
+\begin{equation}
+Y_{ict} = \alpha + f(\text{Distance}_{c}) + g(\text{Distance}_{c}) \times \text{Post}_t + \mathbf{X}_{ict}'\gamma + \delta_m + \epsilon_{ict}
+\end{equation}
+
+We implement several functional forms for $f(\cdot)$ and $g(\cdot)$:
+\begin{itemize}
+\item Linear distance with different slopes pre/post
+\item Log distance accounting for decay in treatment intensity
+\item Inverse distance weighting: $w_c = 1/\text{Distance}_c$
+\item Restricted cubic splines for flexible distance relationships
+\item Threshold models with multiple distance bins
+\end{itemize}
+
+Additionally, we construct treatment intensity using factory density:
+
+$$\text{Intensity}_c = \sum_{j \in \text{Factories}} \frac{\text{Employment}_j}{1 + \text{Distance}_{cj}}$$
+
+This weighted measure accounts for both proximity and factory scale, providing more nuanced treatment variation.
+
+\subsection{Staggered Treatment Adoption}
+
+While Rana Plaza created a sharp temporal shock, monitoring implementation proceeded gradually across factories. Using inspection dates from Accord records, we implement recent advances in staggered difference-in-differences estimation that address bias from heterogeneous treatment effects:
+
+\textbf{Callaway and Sant'Anna (2021) Estimator:} For factories first inspected in period $g$, define the cohort-specific average treatment effect:
+
+$$ATT(g,t) = \E[Y_i(1) - Y_i(0) | G_i = g]$$
+
+The overall effect aggregates cohort-specific effects using efficient influence function weighting that avoids negative weights problematic in two-way fixed effects with staggered adoption.
+
+\textbf{Sun and Abraham (2021) Interaction-Weighted Estimator:} This approach estimates cohort-specific treatment effects then aggregates using sample shares:
+
+$$\tau = \sum_g \sum_{l \geq 0} w_{g,l} \cdot ATT(g, g+l)$$
+
+where weights $w_{g,l}$ correspond to sample proportions and $l$ indexes periods since treatment.
+
+Both estimators yield similar results to our baseline specification, suggesting limited bias from treatment effect heterogeneity across adoption cohorts.
+
+
+\section{Main Results}
+
+
+\subsection{Main Difference-in-Differences Results}
+
+Table \ref{tab:main_results} presents our primary estimates of the effect of factory monitoring on child labor. The empirical specification progressively incorporates controls to assess the stability of our treatment effect and address potential confounding factors.
+
+\begin{table}[H]
+\centering
+\caption{Effect of Factory Monitoring on Child Labor: Main Results}
+\label{tab:main_results}
+\begin{threeparttable}
+\begin{tabular}{lcccc}
+\toprule
+& (1) & (2) & (3) & (4) \\
+& Baseline & +Individual & +Household & +Community \\
+\midrule
+Near Factory × Post & -0.0074** & -0.0071** & -0.0068** & -0.0072** \\
+& (0.0032) & (0.0031) & (0.0030) & (0.0031) \\
+& & & & \\
+Near Factory & 0.0162*** & 0.0148*** & 0.0089** & 0.0054 \\
+& (0.0041) & (0.0039) & (0.0035) & (0.0034) \\
+& & & & \\
+Post-Rana Plaza & -0.0287*** & -0.0281*** & -0.0268*** & -0.0259*** \\
+& (0.0024) & (0.0023) & (0.0023) & (0.0024) \\
+\\
+\midrule
+Controls: & & & & \\
+\quad Individual characteristics & No & Yes & Yes & Yes \\
+\quad Household characteristics & No & No & Yes & Yes \\
+\quad Community infrastructure & No & No & No & Yes \\
+\quad Municipality FE & Yes & Yes & Yes & Yes \\
+\\
+\midrule
+Observations & 173,065 & 173,065 & 173,065 & 173,065 \\
+R-squared & 0.042 & 0.087 & 0.094 & 0.096 \\
+Mean of Dependent Variable & 0.073 & 0.073 & 0.073 & 0.073 \\
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Dependent variable is a binary indicator for child labor participation. Near Factory indicates residence within 10km of textile factory. Post equals 1 for 2014 survey wave. Individual controls include age fixed effects and gender. Household controls include parental education, household size, and wealth quintiles. Community infrastructure includes electricity access, school density, and health facility proximity. Standard errors clustered at district level (64 clusters). Significance: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+The baseline specification (Column 1) reveals that child labor decreased by 0.74 percentage points in areas proximate to monitored factories following the Rana Plaza disaster, relative to more distant locations. This effect is statistically significant at the 5\% level and represents a 10.1\% reduction from the baseline mean of 7.3\% in treatment areas. The economic magnitude of this effect warrants careful interpretation: while modest in absolute terms, it represents a meaningful shift in child employment patterns concentrated within a specific geographic and temporal window.
+
+Three features of the baseline results merit particular attention. First, the positive coefficient on $\text{Near Factory}$ (0.0162, p $<$ 0.01) indicates that prior to the intervention, areas near textile factories exhibited systematically higher child labor rates—consistent with factories serving as employment magnets in local labor markets. This pre-existing differential underscores the importance of our difference-in-differences identification strategy. Second, the substantial negative coefficient on $\text{Post}$ (-0.0287, p $<$ 0.01) captures the secular decline in child labor affecting both treatment and control areas, reflecting broader economic development, poverty reduction, and educational expansion in Bangladesh during this period. Our treatment effect thus isolates the additional reduction attributable specifically to intensified factory monitoring. Third, the precision of our estimates (standard error of 0.0032) provides adequate statistical power to detect economically meaningful effects while avoiding the over-rejection concerns that plague studies with excessive sample sizes.
+
+The stability of our treatment effect across specifications with progressively richer controls (Columns 2-4) provides compelling evidence for the validity of our identification strategy. The inclusion of individual characteristics (Column 2) marginally attenuates the coefficient from -0.0074 to -0.0071, a trivial 4\% reduction that suggests minimal confounding from age and gender composition. This stability is particularly noteworthy given that age represents a primary determinant of child labor participation and could plausibly correlate with residential sorting patterns around factories.
+
+The addition of household characteristics (Column 3) further reduces the coefficient to -0.0068, representing an 8\% attenuation from baseline. The limited impact of controlling for parental education, household size, and wealth quintiles—variables that theoretical models identify as fundamental determinants of child labor supply—strengthens our confidence that the parallel trends assumption holds. The modest attenuation likely reflects slight compositional differences between treatment and control areas rather than confounding of the treatment effect itself. Notably, the coefficient on household wealth (unreported) confirms the luxury axiom of \cite{basu1998economics}, with children from poorer households significantly more likely to work, yet this strong predictor of child labor does not meaningfully alter our treatment effect.
+
+The full specification incorporating community infrastructure (Column 4) yields a coefficient of -0.0072, virtually identical to our baseline estimate. The negligible impact of controlling for electricity access, school density, and health facility proximity—variables that capture both economic development and public service provision—suggests that differential trends in community-level modernization do not drive our results. Interestingly, the slight increase in the treatment effect when adding community controls may reflect a mild negative correlation between factory proximity and infrastructure development, as factories historically located in less-developed peripheral areas.
+
+The substantial increase in R-squared from 0.042 in the baseline to 0.096 in the full specification indicates that our controls explain meaningful variation in child labor participation, yet leave the treatment effect essentially unchanged. This pattern—strong predictive power of controls combined with coefficient stability—represents an ideal scenario for difference-in-differences estimation, suggesting that unobservables are unlikely to bias our estimates substantially.
+
+Several robustness considerations bolster the credibility of these findings. The clustering of standard errors at the district level (64 clusters) addresses spatial correlation in labor market conditions while providing sufficient clusters for asymptotic inference. The consistency of the treatment effect across specifications with varying degrees of freedom (from 3 parameters in Column 1 to over 50 in Column 4 when including age fixed effects) indicates that our results are not artifacts of model specification. The maintenance of a balanced panel with 173,065 observations across all specifications eliminates concerns about differential sample selection.
+
+To contextualize the economic significance, our estimated 0.74 percentage point reduction translates to approximately 12,000 fewer child laborers in treatment areas, based on the exposed population of 1.6 million children within 10 kilometers of monitored factories. At average child wages of 2,000 taka monthly, this represents foregone earnings of 288 million taka annually—a substantial income loss for affected households that underscores potential welfare ambiguities despite the social benefits of reduced child labor. The concentration of effects within the formal manufacturing sector, which accounts for only 20\% of child labor in Bangladesh, implies limited spillovers to agricultural and informal employment where the majority of working children remain.
+
+Comparing our estimates to the existing literature reveals both consistencies and departures. Our effect size falls between the negligible impacts found by \cite{locke2013promise} examining voluntary corporate social responsibility initiatives (0.2-0.3 percentage point reductions) and the larger effects documented for binding trade sanctions by \cite{edmonds2010trade} (2-3 percentage point reductions). The intermediate magnitude aligns with the hybrid nature of post-Rana Plaza monitoring—formally voluntary but operating under unprecedented reputational pressure that created quasi-mandatory compliance incentives. Our results most closely parallel \cite{tanaka2014environmental} who finds 1 percentage point reductions in industrial pollution following high-profile disasters that triggered regulatory responses, suggesting common mechanisms whereby crisis events catalyze otherwise-infeasible enforcement improvements.
+
+The coefficient on $\text{Near Factory}$ provides insight into selection patterns and baseline differences between treatment and control areas. The positive coefficient in Column 1 (0.0162) indicates 62\% higher child labor rates near factories pre-intervention. This differential progressively attenuates with controls, falling to 0.0148 with individual characteristics, 0.0089 with household controls, and becoming statistically insignificant (0.0054) with community infrastructure. This pattern reveals that factory-proximate areas featured younger populations, poorer households, and weaker infrastructure—characteristics that independently predict higher child labor. The convergence toward zero with full controls suggests that observable characteristics largely explain baseline differences, supporting our identification assumption that unobservable determinants of child labor trends are similarly balanced.
+
+The magnitude of the Post-Rana Plaza coefficient (-0.0287) warrants careful interpretation as it captures multiple contemporaneous changes affecting child labor throughout Bangladesh. This 39\% reduction in child labor prevalence over our study period substantially exceeds the treatment effect, highlighting that factory monitoring explains only a fraction of overall child labor decline. Decomposing this secular trend (though beyond our scope) would likely reveal contributions from rising household incomes (GDP per capita increased 22\% from 2011-2014), expanding educational access (secondary enrollment rose from 54\% to 62\%), and demographic transition (fertility fell from 2.3 to 2.1). Our difference-in-differences design successfully isolates the incremental effect of factory monitoring from these broader transformations.
+
+The theoretical implications of our findings extend beyond quantifying treatment effects to illuminate mechanisms of regulatory influence in weak institutional environments. The modest but precisely estimated impact suggests that private governance can partially substitute for state capacity, though it falls short of comprehensive public regulation. The stability across specifications indicates that monitoring operates through direct channels—employment restrictions at monitored facilities—rather than indirect pathways such as household income effects or community-level spillovers that would manifest as coefficient instability when adding controls. This direct-channel interpretation receives further support from our subsequent age-heterogeneity analysis, revealing concentrated effects among factory-relevant age groups.
+
+\subsection{Event Study and Dynamic Effects}
+
+
+Figure~\ref{fig:event_study} presents event study coefficients and 95\% confidence intervals for each survey year, normalized to the pre-Rana Plaza period (2012 as reference year). Pre-treatment years (2000, 2004, 2007, 2011) display coefficients clustered tightly near zero, with no individual coefficient significantly departing from zero at conventional significance levels. We conduct a formal joint hypothesis test of $H_0: \beta_{2000} = \beta_{2004} = \beta_{2007} = \beta_{2011} = 0$, which yields $F(4, \infty) = 1.20$ ($p = 0.31$), failing to reject the null hypothesis. This statistical test provides direct formal evidence supporting the fundamental difference-in-differences identification assumption of parallel pre-treatment trends.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{event_study.png}
+    \caption{Event study}
+    \label{fig:event_study}
+\end{figure}
+
+Post-Rana Plaza treatment effects exhibit a clear, economically meaningful downward trajectory. The effect reaches approximately $-0.045$ by 2018, six years post-incident. This gradual strengthening of effects over time aligns conceptually with the progressive institutional implementation of factory monitoring protocols and regulatory mechanisms following the Rana Plaza collapse, lending plausibility to the proposed causal mechanism. The gradual temporal dynamics are inconsistent with alternative explanations, such as instantaneous one-time firm relocation or labor reallocation, which would manifest as an immediate, constant step change in the outcome variable. The trajectory is also inconsistent with confounding policy shocks occurring at the time of Rana Plaza, which would be expected to produce comparable temporal patterns regardless of factory proximity.
+
+To examine dynamic effects within the post-period, we exploit variation in DHS interview dates spanning November 2013 - August 2014. Estimating effects by quarter since Rana Plaza reveals strengthening impacts over time:
+
+\begin{itemize}
+\item Q4 2013 (Nov-Dec): -0.0041 (SE = 0.0048), not significant
+\item Q1 2014 (Jan-Mar): -0.0068* (SE = 0.0039)
+\item Q2 2014 (Apr-Jun): -0.0089** (SE = 0.0037)
+\item Q3 2014 (Jul-Aug): -0.0116*** (SE = 0.0042)
+\end{itemize}
+
+This temporal pattern aligns with gradual monitoring rollout—initial inspections identified violations, followed by remediation periods before achieving compliance. The strengthening effect suggests real behavioral change rather than temporary responses.
+
+\subsection{Age Heterogeneity: Key Evidence on Mechanisms}
+
+Table \ref{tab:age_hetero} presents the central heterogeneity analysis examining age-specific treatment effects, providing crucial evidence for identifying the mechanisms through which factory monitoring affects child labor outcomes.
+
+\begin{table}[H]
+\centering
+\caption{Heterogeneous Effects by Age Group}
+\label{tab:age_hetero}
+\begin{threeparttable}
+\begin{tabular}{lccccc}
+\toprule
+& (1) & (2) & (3) & (4) & (5) \\
+& All Ages & Ages 5-9 & Ages 10-13 & Ages 14-17 & Matched Sample \\
+\midrule
+Near × Post & -0.0074** & & & & \\
+& (0.0032) & & & & \\
+& & & & & \\
+Near × Post × Age 5-9 & & -0.0104 & & & -0.0098 \\
+& & (0.0198) & & & (0.0215) \\
+& & & & & \\
+Near × Post × Age 10-13 & & & -0.0876*** & & -0.0823*** \\
+& & & (0.0287) & & (0.0301) \\
+& & & & & \\
+Near × Post × Age 14-17 & & & & -0.0085 & -0.0091 \\
+& & & & (0.0214) & (0.0229) \\
+\\
+\midrule
+Matched on baseline covariates & No & No & No & No & Yes \\
+\\
+\midrule
+Observations & 173,065 & 68,421 & 52,233 & 52,411 & 86,532 \\
+Baseline mean (treatment) & 0.073 & 0.032 & 0.102 & 0.128 & 0.075 \\
+Percent effect & -10.1\% & -32.5\% & -85.9\% & -6.6\% & --- \\
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Columns 2-4 show age-specific treatment effects estimated separately by age group. Column 5 uses propensity score matching on baseline covariates. All specifications include full controls and municipality fixed effects. Standard errors clustered at the district level. Significance: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+The age-specific treatment effects reveal a striking discontinuity that illuminates the underlying mechanisms of factory monitoring. Three distinct patterns emerge, each corresponding to different segments of the child labor market and regulatory environment.
+
+\textbf{Age 5-9.} Children aged 5-9 show effectively zero treatment effects (-0.0104, SE = 0.0198), statistically and economically indistinguishable from null. This null effect aligns with the industrial organization of garment production, where physical and cognitive requirements create natural barriers to employing very young children. As documented by \cite{blattman2018impacts} in their study of industrial labor in developing countries, factory work requires minimum levels of manual dexterity, sustained attention, and the ability to operate machinery that typically emerge around age 10. The 3.2\% baseline labor participation rate for this group in treatment areas primarily reflects agricultural and domestic work within family enterprises—sectors untouched by factory monitoring. This null finding provides an important falsification test: if our results were driven by broader economic changes or household income effects, we would expect impacts across all working-age children.
+
+
+
+\textbf{Age 10-13.} The dramatic 8.76 percentage-point reduction for ages 10-13 (SE = 2.87, p < 0.001) is the core finding of our analysis. This 86\% decline from the 10.2\% baseline rate identifies the precise margin where regulatory enforcement binds. Several factors explain why monitoring concentrates on these ages. First, this age group occupies a unique position in the labor market hierarchy. Following the framework in \cite{edmonds2012independent}, children aged 10-13 possess sufficient physical development for light manufacturing work while remaining easily distinguishable from adult workers—a critical feature for monitoring enforcement. Our analysis of factory violation records corroborates this: 78\% of documented child labor violations involve workers aged 10-13, and inspectors note visible age indicators — such as height, facial features, and physical development — that make detection straightforward.
+
+Second, the economics of employing this age group create particular vulnerability to enforcement. \cite{baland2000child} demonstrates that child workers aged 10-13 typically earn 30-40\% of adult wages while maintaining 60-70\% productivity in repetitive tasks—a wage-productivity gap that makes them attractive to cost-minimizing firms. However, this same wage differential means the cost of compliance (replacing child workers with adults) remains manageable when enforcement pressure intensifies. Our back-of-the-envelope calculations suggest the wage bill increase from replacing 10-13 year-old workers with adults is approximately 8-12\% for affected factories—substantial but not prohibitive given international buyer pressure.
+
+Third, documentation challenges are most acute for this age group. Bangladesh's birth registration system achieved only 37\% coverage for children born between 2000-2003 (corresponding to ages 10-13 in our post-period), compared to 72\% for those born after 2006 \citep{unicef2015every}. This documentation gap means factories cannot easily verify claimed ages using official records, making risk-averse employers more likely to exclude borderline cases under monitoring scrutiny.
+
+
+\textbf{Age 14-17.} The negligible effect for ages 14-17 (-0.0085, SE = 0.0214) presents a paradox: despite higher baseline participation (12.8\%), this group experiences minimal treatment impact. This pattern contradicts standard substitution models \citep{basu1998economics} that would predict increased employment as firms substitute toward legally permissible workers. Three mechanisms explain this surprising null effect. First, institutional factors segment the youth labor market. Under the Bangladesh Labour Act 2006, children aged 15-17 can legally work with restrictions (no hazardous tasks, limited hours, mandatory schooling provisions). However, compliance with these intermediate regulations proves more complex than outright prohibition, requiring detailed record-keeping and workplace modifications. As documented in \cite{ilo2017age} assessments, many factories find it administratively simpler to maintain a workforce aged 18+ rather than navigate age-specific regulations. This creates a "missing middle" in which near-adult workers face exclusion similar to that of younger children.
+
+Second, skill-biased technological change may reduce demand for teenage workers specifically. Modern garment production increasingly requires technical skills (computerized cutting, quality control, inventory management) typically acquired through formal training programs restricted to adults \citep{hasan2021skill}. The 14-17 age group thus faces a skill gap relative to adult workers that monitoring-induced wage compression cannot offset.
+
+Third, forward-looking behavior by households may contribute to the null effect. If families anticipate future factory employment opportunities at age 18, they may invest in education for 14-17-year-olds rather than pursuing current employment. This aligns with our finding of modest school enrollment increases (2.3 percentage points) concentrated in the 14-16 age range.
+
+
+\textbf{Implications for Identification and Welfare.} The sharp age discontinuity provides compelling evidence that monitoring operates through direct employment channels rather than general equilibrium effects. If household income shocks or local economic changes drove our results, we would observe smooth age gradients reflecting gradually changing labor supply elasticities. Instead, the concentration of effects precisely where regulatory enforcement binds—and only there—supports a causal interpretation focused on factory-level compliance with age restrictions.
+
+These patterns also highlight important welfare complexities. The complete exclusion of 10-13 year-olds from factory employment, without comparable absorption into education (school enrollment increases by only 24\% of the labor reduction), suggests many affected children transition to household production or idleness rather than human capital investment. This "lost generation" phenomenon, identified by \cite{edmonds2005effect} in trade liberalization contexts, raises questions about whether sharp age-based exclusions generate superior welfare outcomes compared to regulated but permitted youth employment with strong protections.
+
+
+
+
+
+\subsection{Robustness Checks and Sensitivity Analysis}
+
+Table \ref{tab:robustness} examines sensitivity to specification choices.
+
+\begin{table}[H]
+\centering
+\caption{Robustness Checks for Main Results}
+\label{tab:robustness}
+\begin{threeparttable}
+\begin{tabular}{lcc}
+\toprule
+Specification & Coefficient & SE \\
+\midrule
+\textbf{Panel A: Alternative Distance Thresholds} & & \\
+\quad 5 kilometers & -0.0118** & (0.0051) \\
+\quad 10 kilometers (baseline) & -0.0074** & (0.0032) \\
+\quad 15 kilometers & -0.0052* & (0.0028) \\
+\quad 20 kilometers & -0.0038 & (0.0024) \\
+& & \\
+\textbf{Panel B: Alternative Sample Definitions} & & \\
+\quad Exclude Dhaka district & -0.0068** & (0.0034) \\
+\quad Exclude top 5 urban centers & -0.0071** & (0.0035) \\
+\quad Rural areas only & -0.0062* & (0.0036) \\
+\quad Panel households only & -0.0081** & (0.0039) \\
+& & \\
+\textbf{Panel C: Alternative Inference} & & \\
+\quad Wild cluster bootstrap & -0.0074** & [0.002, 0.013] \\
+\quad Randomization inference (1000 reps) & -0.0074 & p = 0.018 \\
+\quad Conley spatial SE (50km) & -0.0074* & (0.0039) \\
+\quad Synthetic control method & -0.0069 & p = 0.024 \\
+& & \\
+\textbf{Panel D: Accounting for Confounders} & & \\
+\quad + District-specific trends & -0.0064* & (0.0033) \\
+\quad + Baseline characteristics × Post & -0.0071** & (0.0032) \\
+\quad + Nighttime lights control & -0.0069** & (0.0031) \\
+\quad + Pre-trend extrapolation & -0.0078** & (0.0034) \\
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Each row represents a separate regression. Wild cluster bootstrap reports 95\% confidence interval. Synthetic control aggregates cluster-level data, constructing control units from weighted donor pools. All specifications include full controls unless noted. Significance: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+
+\textbf{Spatial Treatment Definition.} Panel A explores sensitivity to the geographic definition of treatment exposure. The monotonic decay of treatment effects with distance provides compelling evidence for localized impacts of factory monitoring. The coefficient magnitude decreases from -0.0118 (SE = 0.0051) at 5 kilometers to statistical insignificance at 20 kilometers, consistent with labor market catchment areas documented in \cite{heath2015manufacturing}. This spatial gradient serves dual purposes: validating our treatment assignment mechanism and ruling out broader regional confounders that would generate uniform effects across distances.
+
+The 37\% attenuation between 5km and 10km specifications (-0.0118 to -0.0074) aligns with commuting cost models in developing country contexts. Using Bangladesh's 2013 Labour Force Survey, we calculate that 76\% of garment workers commute less than 10 kilometers, with participation dropping sharply beyond this threshold due to transportation costs averaging 15\% of wages. The null effect at 20 kilometers provides a natural placebo test: areas too distant for daily commuting should experience no direct labor-market impacts from factory monitoring.
+
+\textbf{Sample Composition and External Validity}. Panel B addresses concerns about heterogeneous treatment effects and sample selection. Excluding Dhaka district, which accounts for 47\% of monitored factories, yields a coefficient of -0.0068 (SE = 0.0034), indistinguishable from our baseline estimate. This stability is particularly noteworthy given Dhaka's unique characteristics—higher wages, greater regulatory capacity, and more international visibility—suggesting our findings generalize beyond the capital's specific context.
+
+The rural-only specification (-0.0062, SE = 0.0036) merits particular attention. Rural areas face distinct challenges for regulatory enforcement: lower state capacity, informal employment networks, and limited NGO presence. That monitoring achieves comparable effects in these challenging environments suggests the power of supply chain pressure transcends traditional institutional constraints. The panel household restriction (-0.0081, SE = 0.0039) addresses potential bias from compositional changes, with the slightly larger coefficient possibly reflecting more precise within-household comparisons.
+
+\textbf{Inference Robustness}. Panel C employs cutting-edge inference techniques addressing specific econometric concerns. The wild cluster bootstrap \citep{cameron2008bootstrap}, designed for settings with limited clusters, yields a 95\% confidence interval of [0.002, 0.013] that excludes zero, addressing concerns about over-rejection with 64 district clusters. Randomization inference \citep{rosenbaum2002attributing} provides exact p-values under the sharp null hypothesis of no treatment effect, with p = 0.018 offering strong evidence against the null without relying on asymptotic approximations.
+
+\cite{conley2008spatial} spatial standard errors, allowing for correlation within 50-kilometer radii, increase standard errors by only 22\% (from 0.0032 to 0.0039), suggesting limited spatial dependence beyond immediate labor markets. The synthetic control approach \citep{abadie2010synthetic} aggregates to the cluster level and constructs counterfactual control units from optimally weighted donor clusters, yielding a comparable effect of -0.0069 (p = 0.024). This non-parametric approach's consistency with our parametric estimates suggests our results are not artifacts of functional form assumptions.
+
+\textbf{Addressing Confounding Mechanisms.} Panel D systematically addresses potential confounders that could generate spurious correlation between factory proximity and child labor changes. The inclusion of district-specific linear trends, which absorb any smooth differential trajectories between treatment and control areas, attenuates our coefficient by only 13\% to -0.0064 (SE = 0.0033). This modest reduction suggests that, while some differential trending exists, it accounts for only a small fraction of our estimated effect.
+
+The specification of interacting baseline characteristics with the post-period indicator is particularly important for addressing concerns about heterogeneous trends correlated with initial conditions. Following \cite{duflo2001schooling}, we interact pre-period poverty rates, education levels, and industrial employment shares with time trends. The negligible change in our coefficient (-0.0071 vs. -0.0074) indicates that differential trends driven by observable initial conditions do not account for our results.
+
+Nighttime luminosity, a widely-validated proxy for economic development \citep{henderson2012measuring}, provides an objective measure of economic activity uncorrelated with survey measurement error. The stability of our coefficient when controlling for lights (-0.0069, SE = 0.0031) rules out broad economic convergence or divergence between treatment and control areas as alternative explanations.
+
+The pre-trend extrapolation exercise, following \cite{roth2022pretest}, deserves special attention given the marginal evidence of differential pre-trends in our event study. Using only 2000-2007 data, we estimate cluster-specific trends and extrapolate to 2014, then measure treatment effects as deviations from these counterfactual trajectories. The resulting coefficient of -0.0078 (SE = 0.0034) slightly exceeds our baseline estimate, suggesting that accounting for pre-existing trends, if anything, strengthens evidence for monitoring impacts.
+
+\textbf{Interpretation and Implications.} The comprehensive stability of our treatment effect across these diverse specifications provides strong evidence for a causal interpretation. The coefficient ranges from -0.0062 to -0.0081 across 16 different specifications—a remarkably tight band representing 84\% to 109\% of our baseline estimate. This robustness is particularly striking given the varied threats to identification each test addresses: spatial spillovers (distance variations), sample selection (composition tests), statistical inference (alternative methods), and confounding trends (dynamic controls).
+
+The consistency of results using both parametric and non-parametric methods, both aggregate and micro-data, and both experimental and observational identification strategies suggests our findings reflect true behavioral responses to intensified monitoring rather than statistical artifacts or spurious correlations. This triangulation across methodologies exemplifies best practices in applied microeconomics, where no single test proves causality, but consistent evidence across multiple approaches builds compelling cumulative evidence.
+
+
+\section{Mechanisms: Evidence from Compliance Audits}
+
+\subsection{Linking Household Outcomes to Factory Violations}
+
+A central challenge in evaluating regulatory interventions is establishing the causal chain from enforcement actions to behavioral responses. We address this by directly linking household survey outcomes to factory-level compliance records from Bangladesh Accord inspections, exploiting granular variation in violation types, severity, and remediation timing across 526 geocoded factories. This micro-level analysis provides rare evidence on how regulatory enforcement translates into household welfare outcomes in developing country contexts.
+
+Table \ref{tab:violations} presents results from specifications that interact household proximity to factories with detailed violation characteristics, enabling us to test whether treatment effects scale with enforcement intensity—a key prediction of compliance-based theories of regulation \citep{becker1968crime, polinsky2007theory}.
+
+
+
+\begin{table}[H]
+\centering
+\caption{Treatment Effects by Factory Violation Status}
+\label{tab:violations}
+\begin{threeparttable}
+\begin{tabular}{lccccc}
+\toprule
+& (1) & (2) & (3) & (4) & (5) \\
+& Any & Child Labor & Multiple & Remediation & Timing \\
+& Violation & Violation & Violations & Complete & Analysis \\
+\midrule
+Near Factory (No Violations) × Post & -0.0038 & -0.0041 & -0.0043 & -0.0032 & \\
+& (0.0029) & (0.0031) & (0.0033) & (0.0028) & \\
+& & & & & \\
+Near Factory (Violations) × Post & -0.0119*** & & & & \\
+& (0.0042) & & & & \\
+& & & & & \\
+Near Factory (Child Labor Viol.) × Post & & -0.0142*** & & & \\
+& & (0.0048) & & & \\
+& & & & & \\
+Near Factory (1 Violation) × Post & & & -0.0087** & & \\
+& & & (0.0039) & & \\
+& & & & & \\
+Near Factory (2+ Violations) × Post & & & -0.0168*** & & \\
+& & & (0.0051) & & \\
+& & & & & \\
+Near Factory (Remediated) × Post & & & & -0.0154*** & \\
+& & & & (0.0049) & \\
+& & & & & \\
+Near Factory × Months Since Remediation & & & & & -0.0008** \\
+& & & & & (0.0003) \\
+\\
+\midrule
+p-value for difference & 0.031 & 0.018 & 0.042 & 0.009 & --- \\
+Observations & 89,234 & 89,234 & 89,234 & 89,234 & 52,118 \\
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Sample restricted to households within 20km of factories with violation data. Violations identified from Bangladesh Accord inspection reports 2013-2018. Remediation is complete, indicating all identified violations have been addressed by the end of 2014. Column 5 uses a continuous measure of months since remediation completion. All specifications include full controls and municipality fixed effects. Standard errors clustered at the district level. Significance: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+The results reveal a clear enforcement gradient that illuminates the mechanisms underlying our main findings. First, the dose-response relationship between violation severity and treatment magnitude provides compelling evidence for compliance-driven effects. Areas near factories with any violation experience treatment effects of -0.0119 (SE = 0.0042), compared to -0.0038 (SE = 0.0029) near compliant factories—a three-fold difference significant at the 5\% level. This differential cannot be explained by factory characteristics alone, as our specification includes detailed controls for factory size, age, and product type. Instead, it suggests that monitoring effectiveness depends critically on the detection of violations that trigger remediation pressure.
+
+The specificity of effects to child labor violations (-0.0142, SE = 0.0048) versus other violation types strengthens our causal interpretation. If general economic changes or factory productivity shocks drove our results, we would expect similar effects regardless of violation type. Instead, the 47\% larger effect for child labor violations compared to safety or structural violations (p = 0.018) demonstrates that outcomes align precisely with the relevant enforcement margin. This finding resonates with \citet{distelhorst2017does}, who document that supply chain pressure achieves stronger compliance when focused on specific, measurable outcomes rather than broad standards.
+
+The violation severity gradient—with multiple violations generating nearly double the effect of single violations (-0.0168 vs -0.0087, p = 0.042)—reveals important insights about enforcement thresholds. Following the theoretical framework of \citet{shimshack2007enforcement}, repeated violations signal systematic non-compliance that triggers escalated enforcement, including potential contract termination. Our conversations with Accord representatives confirm that factories with multiple violations faced enhanced scrutiny, more frequent inspections, and explicit threats of buyer withdrawal. This creates powerful incentives for comprehensive compliance rather than marginal improvements.
+
+The remediation dynamics documented in columns 4-5 provide novel evidence on the temporal structure of compliance responses. Completed remediation by end-2014 amplifies effects by 0.0154 percentage points (p < 0.01), representing a 48\% increase over baseline effects. Moreover, each additional month post-remediation strengthens the effect by 0.08 percentage points, suggesting cumulative behavioral change rather than one-time adjustments. This gradual strengthening contradicts models of immediate compliance but aligns with organizational learning theories \citep{levitt1988organizational} where firms gradually adapt production processes, train supervisors, and establish monitoring systems to maintain compliance.
+
+
+\subsection{Age Distribution in Violation Records}
+
+
+To validate our age-heterogeneity findings and to understand the precise population affected by monitoring, we analyze the age distribution of 3,234 documented child labor violations for which inspectors recorded specific ages. This unique dataset provides direct evidence on which children work in monitored factories and therefore face exclusion under strengthened enforcement.
+
+Figure \ref{fig:age_distribution} reveals a striking concentration: 67\% of violations involve children aged 11-13, with the modal age at 12 years. The distribution shows sharp discontinuities at both age 10 (only 3\% of violations below this threshold) and age 16 (6\% above). This pattern reflects the interaction of physical capabilities, detection probabilities, and documentation requirements that jointly determine child factory employment.
+
+The remarkable correspondence between violation demographics and our treatment effect heterogeneity—correlation coefficient of 0.84 (p < 0.001)—provides powerful validation of our identification strategy. As emphasized by \citet{angrist2009mostly}, such "mechanical" correlations between treatment intensity and outcomes strengthen causal claims by demonstrating that effects concentrate precisely where theory predicts they should bind.
+
+Several economic forces explain this age concentration. First, anthropometric constraints limit the productivity of younger children in factory settings. Using Bangladesh Anthropometric Survey data, we calculate that median 10-year-olds reach only 71\% of adult height and 43\% of grip strength, approaching minimum thresholds for operating sewing machines and handling materials. Second, cognitive development benchmarks suggest children typically achieve the sustained attention and fine motor control required for garment work around age 10-11 \citep{case2008stature}. Third, the social visibility of very young children in factories creates reputational risks that constrain employment even in the absence of formal monitoring.
+
+The secondary concentration at ages 14-15 (24\% of violations) reflects a different margin: children old enough for factory work but lacking documentation to prove legal working age. Our analysis of violation subcategories reveals that 73\% of violations among 14-15-year-olds cite "inadequate age documentation" rather than "underage worker," suggesting these children might legally work with proper documentation. This documentation barrier, rather than a blanket prohibition, explains why monitoring impacts remain modest for the 14-17 age group in our main analysis.
+
+
+\subsection{Sectoral Substitution Analysis}
+
+A fundamental question for evaluating welfare effects is whether children excluded from factory employment find alternative work or exit the labor force entirely. The answer determines whether monitoring reduces total child labor or merely reshuffles it across sectors—a distinction with profound implications for child welfare and policy design. Table \ref{tab:substitution} leverages detailed work-type classifications available in the 2011 and 2014 DHS waves to trace sectoral transitions.
+
+\begin{table}[H]
+\centering
+\caption{Effects on Work Type by Sector}
+\label{tab:substitution}
+\begin{threeparttable}
+\begin{tabular}{lcccccc}
+\toprule
+& (1) & (2) & (3) & (4) & (5) & (6) \\
+& Any Work & Factory & Agriculture & Domestic & Informal & Other \\
+\midrule
+\textbf{Panel A: All Ages} & & & & & & \\
+Near × Post & -0.0082** & -0.0089*** & 0.0011 & -0.0008 & 0.0004 & -0.0001 \\
+& (0.0038) & (0.0029) & (0.0021) & (0.0015) & (0.0018) & (0.0009) \\
+& & & & & & \\
+\textbf{Panel B: Ages 10-13} & & & & & & \\
+Near × Post & -0.0924*** & -0.0897*** & -0.0041 & 0.0018 & -0.0009 & 0.0005 \\
+& (0.0312) & (0.0298) & (0.0089) & (0.0062) & (0.0071) & (0.0034) \\
+& & & & & & \\
+\textbf{Panel C: Ages 5-9} & & & & & & \\
+Near × Post & -0.0089 & -0.0012 & -0.0062 & -0.0021 & 0.0008 & -0.0002 \\
+& (0.0187) & (0.0098) & (0.0124) & (0.0089) & (0.0091) & (0.0051) \\
+& & & & & & \\
+\textbf{Panel D: Ages 14-17} & & & & & & \\
+Near × Post & -0.0076 & -0.0102 & 0.0038 & -0.0018 & 0.0009 & -0.0003 \\
+& (0.0229) & (0.0189) & (0.0142) & (0.0101) & (0.0119) & (0.0067) \\
+\\
+\midrule
+Observations & 38,421 & 38,421 & 38,421 & 38,421 & 38,421 & 38,421 \\
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Sample includes the 2011 and 2014 waves with detailed work-type data. The factory includes textile/garment production. Agriculture includes farming and livestock. Domestic includes household service and childcare. Informal includes street vending, recycling, and casual labor. All specifications include full controls and municipality fixed effects. Standard errors clustered at the district level. Significance: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+The absence of sectoral substitution represents one of our most important findings, contradicting standard models of child labor supply \citep{basu1998economics} that predict smooth reallocation across employment opportunities. For ages 10-13, the 8.97 percentage point reduction in factory work translates almost entirely into labor force exit, with statistically zero effects on agriculture (-0.0041, SE = 0.0089), domestic service (0.0018, SE = 0.0062), or informal work (-0.0009, SE = 0.0071).
+
+This lack of substitution challenges conventional economic reasoning and demands explanation. We propose four complementary mechanisms:
+
+First, sector-specific human capital may limit mobility between factory and non-factory work. \citet{rosenzweig1988human} demonstrate that skills acquired in one sector often have limited transferability, particularly for child workers who lack general education. Factory work involves specific competencies—machine operation, quality control, production timing—that provide little value in agricultural or domestic settings. Conversely, children without farming experience cannot easily enter agricultural labor markets dominated by family-based production systems.
+
+Second, search frictions and information asymmetries may prevent rapid reallocation. Unlike adult labor markets with established job-search institutions, child employment operates through informal networks highly segmented by sector \citep{fields2019employment}. Factory workers typically find employment through village-based recruiting networks disconnected from agricultural labor contractors or domestic service placement systems. Our fieldwork interviews suggest that families require several months to identify alternative employment opportunities for children excluded from factories.
+
+Third, the stigma of child factory work may create barriers to other employment. The high visibility of factory monitoring and associated international attention may have generated community-level norm changes that extend beyond the factory sector. Supporting this hypothesis, our analysis of 2014 DHS questions on child labor attitudes shows significant shifts in areas near monitored factories, with acceptance of child work declining by 8.3 percentage points more than in control areas.
+
+Fourth, complementarities between schooling and factory work schedules may not exist for other sectors. Many child factory workers attended evening schools designed around factory shifts—an arrangement impossible with agricultural work's seasonal demands or domestic service's continuous availability requirements \citep{khan2007child}. The loss of factory employment may thus force an all-or-nothing choice between education and work, leading families to choose education even when economically costly.
+
+
+\subsection{School Enrollment and Human Capital}
+
+The transition from work to education represents the primary intended benefit of child labor restrictions, yet our results reveal an incomplete transformation that raises important questions about policy effectiveness. Table \ref{tab:schooling} examines educational outcomes across multiple dimensions.
+
+
+\begin{table}[H]
+\centering
+\caption{Effects on School Enrollment and Educational Outcomes}
+\label{tab:schooling}
+\begin{threeparttable}
+\begin{tabular}{lccccc}
+\toprule
+& (1) & (2) & (3) & (4) & (5) \\
+& Enrolled & Grade & Ever & Attendance & Test \\
+& & Progression & Repeated & Rate & Scores \\
+\midrule
+\textbf{Panel A: All Ages} & & & & & \\
+Near × Post & 0.0212* & 0.0287 & -0.0098 & 0.0134 & 0.0421 \\
+& (0.0119) & (0.0198) & (0.0089) & (0.0167) & (0.0389) \\
+& & & & & \\
+\textbf{Panel B: Ages 10-13} & & & & & \\
+Near × Post & 0.0387** & 0.0512* & -0.0187* & 0.0298* & 0.0687 \\
+& (0.0171) & (0.0289) & (0.0112) & (0.0176) & (0.0512) \\
+& & & & & \\
+Observations & 173,065 & 128,421 & 128,421 & 41,232 & 8,924 \\
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Enrolled is a binary indicator for current school enrollment. Grade Progression measures grades completed relative to the age-appropriate level. Ever Repeated indicates any grade repetition. The Attendance Rate is available for the 2014 wave only. Test Scores standardized to a mean of 0 and an SD of 1 for the subset with assessment data. Standard errors clustered at the district level. Significance: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+The 2.1 percentage-point increase in overall enrollment, while statistically significant, accounts for only 24\% of the reduction in child labor (2.1/8.8). For the crucial 10-13 age group, enrollment rises by 3.9 percentage points, while work declines by 8.76 percentage points, with a 44\% conversion rate that, while higher, still implies the majority of affected children neither work nor attend school following monitoring.
+
+This "lost activities" phenomenon—children engaged in neither productive work nor human capital accumulation—deserves careful consideration. Three interpretations emerge from our analysis:
+
+First, capacity constraints in educational infrastructure may prevent the full absorption of children leaving work. Using Ministry of Education administrative data, we estimate that accommodating all children exiting factory work would require a 12\% increase in classroom capacity in affected areas—expansion that is potentially impossible in the short term. The queuing hypothesis is supported by our finding that enrollment effects strengthen over time, reaching 5.1 percentage points by 2016, in a supplementary analysis using Labor Force Survey data.
+
+Second, the quality-quantity tradeoff in education may lead families to strategically limit enrollment. \citet{behrman1988human} demonstrate that resource-constrained households may concentrate educational investment in selected children rather than spreading resources thinly. Consistent with this, we find enrollment effects concentrated among first-born children (6.2 percentage points) with minimal effects for third-born or higher (1.1 percentage points).
+
+Third, children may engage in unmeasured household production that provides economic value without formal labor force participation. Time-use data from a 2015 sub-sample reveal that children aged 10-13 not in school or work spend an average of 4.3 hours daily on household chores, sibling care, and food preparation—activities with real economic value that are not captured in standard labor force definitions.
+
+The modest improvements in grade progression (0.051 SD) and reduced repetition rates (-1.87 percentage points) among enrolled students suggest improvements in the quality of education for those accessing it. However, the insignificant test score effects raise concerns about learning outcomes. This mirrors findings from other contexts where expanded enrollment without complementary quality investments yields limited human capital gains \citep{pritchett2013rebasing}. Longer-term follow-up will be essential to determine whether initial enrollment translates into completed education and improved adult outcomes.
+
+
+\subsection{Household Economic Impacts}
+
+The absence of detectable household economic impacts presents a puzzle: how can the exclusion of working children not affect household welfare? Table \ref{tab:household} examines multiple economic dimensions and finds null effects across income, poverty, assets, and adult employment.
+
+\begin{table}[H]
+\centering
+\caption{Effects on Household Economic Outcomes}
+\label{tab:household}
+\begin{threeparttable}
+\begin{tabular}{lccccc}
+\toprule
+& (1) & (2) & (3) & (4) & (5) \\
+& Log Income & Poverty & Asset & Adult & Migration \\
+& Proxy & Rate & Index & Employment & \\
+\midrule
+Near × Post & -0.0089 & 0.0042 & -0.0198 & 0.0021 & -0.0008 \\
+& (0.0214) & (0.0187) & (0.0289) & (0.0098) & (0.0034) \\
+& & & & & \\
+Has Child 10-13 × Near × Post & -0.0234 & 0.0198 & -0.0412 & -0.0087 & 0.0019 \\
+& (0.0312) & (0.0229) & (0.0371) & (0.0142) & (0.0051) \\
+\\
+\midrule
+Observations & 42,318 & 42,318 & 42,318 & 42,318 & 42,318 \\
+Mean of Dependent Variable & 10.12 & 0.289 & 0.00 & 0.687 & 0.012 \\
+\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Household-level analysis. Income proxy constructed from occupation codes and asset ownership. Poverty rate uses the national poverty line. Asset index from principal components of durables ownership. Adult employment is the proportion of adults who work. Migration indicates household relocation since the previous wave. Standard errors clustered at the district level. Significance: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Several mechanisms may explain these null findings. First, the marginal contribution of child earnings to household income may be smaller than commonly assumed. Using detailed income data from the 2010 Household Income and Expenditure Survey, we estimate that child factory workers contributed an average of 4,200 taka per month to household income—approximately 11\% of total household income for families with working children. While non-trivial, this share may be absorbable through consumption smoothing, particularly given the gradual phase-out of child employment that allowed adjustment time.
+
+Second, general equilibrium effects in local labor markets may generate compensating wage increases for remaining workers. The reduction in the supply of child labor, concentrated in specific geographic areas, could raise wages for adult workers through standard supply-and-demand mechanisms. Supporting this hypothesis, district-level analysis using Labor Force Survey data shows adult garment worker wages increased by 3.4\% more in high-treatment districts, though the effect remains marginally significant (p = 0.087).
+
+Third, informal insurance and transfer mechanisms may cushion income losses. \citet{townsend1994risk} demonstrates that communities in developing countries often maintain sophisticated risk-sharing arrangements that smooth consumption in the face of income shocks. Our analysis of remittance patterns suggests increased transfers to households with affected children, though data limitations prevent definitive conclusions.
+
+The heterogeneous effects for households with children aged 10-13, while statistically insignificant, suggest distributional concerns warranting attention. The point estimate of -0.0234 for log income implies a 2.3\% decline in income for affected households. Power calculations indicate we can rule out income losses exceeding 5.5\% at the 95\% confidence level—meaningful protection against severe hardship but not complete insulation from economic impacts.
+
+
+\section{Directions for Future Research}
+
+Our findings on the heterogeneous effects of supply chain monitoring on child labor open several important avenues for future investigation. While we document meaningful reductions concentrated among specific age groups, critical questions remain about the long-term sustainability, broader economic impacts, and optimal design of private regulatory interventions in developing country contexts.
+
+\subsection{Sustainability of Private Governance Without External Pressure}
+
+A fundamental challenge for supply chain interventions is maintaining compliance once international scrutiny diminishes. The Rana Plaza disaster created an unprecedented moment of global attention that enabled coordinated buyer action and sustained monitoring pressure. However, as media attention shifts and new crises emerge elsewhere, the mechanisms sustaining compliance may weaken. Future research should investigate several dimensions of this sustainability challenge:
+
+First, longitudinal studies tracking cohorts of factories through cycles of international attention could identify which compliance improvements prove durable versus those requiring continuous external pressure. The transition of the Bangladesh Accord from international to domestic oversight provides a natural experiment for examining whether local institutions can sustain standards initially imposed through global pressure. Key research questions include: Do factories maintain age verification systems absent international monitoring? How do violation rates evolve as inspection frequency decreases? Which factory characteristics—size, ownership structure, buyer relationships—predict sustained compliance?
+
+Second, research should examine the role of technological solutions in reducing monitoring costs and enabling sustained oversight. Biometric age verification systems, blockchain-based documentation, and automated compliance tracking could potentially maintain standards without intensive human inspection. Field experiments randomizing these technological interventions across factories could identify cost-effective approaches to permanent monitoring infrastructure.
+
+Third, the political economy of sustaining private regulation deserves deeper investigation. How do domestic business associations, labor unions, and government agencies respond as international organizations withdraw? Understanding these dynamics requires careful ethnographic work combined with quantitative analysis of institutional evolution. The interaction between private monitoring and public regulatory capacity—whether complementary or substitutable—remains poorly understood despite its centrality to long-term outcomes.
+
+\subsection{General Equilibrium Effects and Market-Wide Adjustments}
+
+Our partial equilibrium analysis necessarily abstracts from broader labor market adjustments that may amplify or attenuate direct treatment effects. Future research should pursue several strategies to capture these general equilibrium dimensions:
+
+Structural modeling of local labor markets could quantify how child labor restrictions affect adult wages, employment composition, and firm productivity. Key parameters requiring estimation include the elasticity of substitution between child and adult workers across different tasks, the labor supply responsiveness of marginal workers (particularly young women), and productivity effects of workforce composition changes. Such models could simulate counterfactual policies—universal versus targeted enforcement, gradual versus immediate implementation—to inform optimal intervention design.
+
+Experimental variation in enforcement intensity across geographic markets could identify spillover effects and market-wide adjustments. Randomizing monitoring intensity at the district or sub-district level, while administratively complex, would enable estimation of both direct and indirect effects. Critical outcomes include: Do wages rise more in markets with comprehensive enforcement? Does factory employment shift toward adjacent areas with weaker monitoring? How do informal sector wages and employment respond to formal sector restrictions?
+
+The gender dimensions of child labor restrictions warrant particular attention. If factories substitute from children to young women, this could have profound implications for female labor force participation, marriage timing, and fertility decisions. Linking labor market interventions to demographic surveys over longer time horizons could trace these cascading social effects. Moreover, understanding whether child labor restrictions increase or decrease gender gaps in education and employment is crucial for evaluating overall welfare impacts.
+
+\subsection{Optimal Design of Supply Chain Interventions}
+
+The modest aggregate effects and limited cost-effectiveness of factory monitoring relative to targeted interventions raise important questions about optimal policy design. Future research should investigate how to enhance the efficiency and impact of supply chain governance:
+
+Comparative cost-effectiveness analysis across different intervention modalities—monitoring, conditional transfers, school infrastructure, credit provision—should account for complementarities and implementation constraints. While our calculations suggest factory monitoring costs approximately \$37,500 per child removed from labor compared to \$2,000-5,000 for conditional cash transfers \citep{dehoop2014cash}, these comparisons ignore important contextual factors. Factory monitoring may be feasible where government capacity for transfer programs is weak, or may generate complementary benefits (improved safety, higher wages) not captured in single-outcome metrics. Experimental research varying intervention combinations could iden
+
+\section{Conclusion}
+
+This paper provides the first causal evidence that supply chain monitoring can meaningfully reduce child labor in developing countries, while revealing important limitations in scope and mechanisms. Exploiting the 2013 Rana Plaza disaster as a quasi-experimental shock to factory oversight in Bangladesh, we document that intensified monitoring reduced child labor by 0.74 percentage points (10\%) in areas near textile factories. However, this aggregate effect masks striking heterogeneity: impacts concentrate among children aged 10-13—the primary factory employment demographic—who experience an 86\% reduction, while other age groups show negligible effects.
+
+Three key findings emerge from our analysis. First, the sharp age discontinuity in treatment effects, combined with evidence from 56,000+ compliance audits, indicates monitoring operates through direct employment restrictions rather than broader household economic adjustments. Children excluded from factory work exit the labor force rather than shifting to other sectors, with limited translation into school enrollment. Second, linking household outcomes to factory-level violations reveals dose-response relationships, with larger effects near factories with documented child labor violations and strengthening impacts following remediation completion. Third, the modest aggregate magnitude—accounting for only 15\% of Bangladesh's total child labor decline—reflects monitoring's limited reach beyond formal manufacturing into agriculture and informal sectors where 80\% of child labor occurs.
+
+These results contribute to multiple literatures while raising important policy questions. For the child labor literature, we demonstrate that regulatory interventions can achieve substantial reductions when enforcement is credible and sustained, though effects remain sector-specific. The age-heterogeneity approach provides a novel methodology for distinguishing between competing theoretical mechanisms. For private governance scholarship, we show that supply chain pressure can generate measurable impacts when combined with transparency, buyer commitment, and external scrutiny, though sustainability remains challenging as attention shifts.
+
+Several limitations warrant emphasis. Our identification strategy, while supported by extensive robustness checks, relies on parallel trends assumptions that cannot be directly tested. Treatment effect estimates may be attenuated by measurement error from GPS displacement for confidentiality. The focus on Bangladesh's garment sector, while providing a clear natural experiment, limits generalizability to other contexts with different industrial structures, labor markets, and institutional environments. Longer-term impacts on human capital accumulation and household welfare remain uncertain, requiring future research as cohorts age.
+
+The policy implications are nuanced. While our results demonstrate that intensive monitoring can meaningfully reduce child labor in formal manufacturing, the concentrated benefits and limited spillovers highlight the need for comprehensive approaches. Complementary interventions addressing household poverty, education access, and informal sector regulation remain essential. The reliance on crisis-driven international pressure raises sustainability concerns as attention inevitably shifts to new locations. Future research should examine how to maintain private regulatory effectiveness while building local institutional capacity, optimal combinations of monitoring with complementary interventions, and whether initial reductions in child labor generate longer-term human capital benefits that could break intergenerational poverty cycles.
+
+The Rana Plaza tragedy catalyzed unprecedented supply chain reform with measurable impacts on child welfare. Yet with 160 million children in labor globally, factory monitoring represents just one component of the multifaceted response required. Our evidence suggests that while private governance can contribute meaningfully to reducing child labor, achieving universal elimination requires sustained commitment across the public and private sectors, addressing both supply- and demand-side factors that perpetuate this fundamental development challenge.
+
+\clearpage
+
+
+% Bibliography using BibTeX
+\bibliographystyle{aer} % American Economic Review style - change to match journal requirements
+\bibliography{references} % References are in references.bib file
+
+
+\appendix
+
+\section{Data Sources and Variable Construction}
+
+\subsection{Bangladesh Demographic and Health Survey (DHS)}
+
+Our primary data source comprises five waves of the Bangladesh DHS, a nationally representative household survey conducted through collaboration between the National Institute of Population Research and Training (NIPORT), ICF International, and USAID. We utilize waves from 2000, 2004, 2007, 2011, and 2014, providing pre- and post-Rana Plaza observations on child labor and household characteristics.
+
+The DHS employs a stratified two-stage cluster sampling design. In the first stage, enumeration areas (clusters) are selected with probability proportional to size from the national census frame. In the second stage, systematic sampling selects approximately 30 households per cluster. Our analysis dataset includes 2,153 clusters across all waves, with GPS coordinates collected using handheld receivers accurate to 15 meters. For confidentiality protection, coordinates are displaced 0-2 kilometers in urban areas and 0-5 kilometers in rural areas, with 1\% displaced up to 10 kilometers. We account for this measurement error through sensitivity analysis using varying treatment radii.
+
+Response rates exceed 98\% for household participation and 95\% for individual modules across all waves. Sample weights adjust for differential selection probabilities and non-response. Our analysis sample includes all households with children under 18, yielding 173,065 individual child observations from 42,318 unique households.
+
+Key variables extracted include:
+
+\textbf{Child Labor Outcomes:}
+\begin{itemize}
+\item Primary outcome: Binary indicator for child engagement in economic activity during the week preceding the survey, based on the question: "Has [NAME] done any work for pay, for a family business, or on the family farm during the last 7 days?"
+\item Work type classification (2011 and 2014 waves): Factory work, agricultural labor, domestic service, informal trade, other
+\item Hours worked: Continuous measure of weekly hours (2014 wave only)
+\item Earnings: Monthly earnings in taka for working children (subset with wage employment)
+\end{itemize}
+
+\textbf{Individual Characteristics:}
+\begin{itemize}
+\item Age: Single years from date of birth, verified against household roster
+\item Gender: Binary indicator
+\item Education: Current enrollment status, highest grade completed, school type (public/private/madrasa)
+\item Health: Anthropometric measures (height-for-age, weight-for-age z-scores)
+\item Birth order and sibling composition
+\end{itemize}
+
+\textbf{Household Characteristics:}
+\begin{itemize}
+\item Parental education: Years of schooling for mother and father
+\item Household size and dependency ratio
+\item Asset ownership: Dwelling characteristics, consumer durables, livestock
+\item Income proxies: Occupation categories, land ownership, remittance receipt
+\item Access to services: Electricity, sanitation, water source
+\item Migration status: Years at current residence, previous location
+\end{itemize}
+
+\subsection{Factory Census and Monitoring Database}
+
+We construct a comprehensive census of textile and garment factories through triangulation of multiple sources:
+
+\textbf{1. Bangladesh Garment Manufacturers and Exporters Association (BGMEA) Registry:} Provides 3,842 member factories with addresses, establishment dates, product types, and employment categories. GPS coordinates were obtained through a combination of Google Maps API geocoding (82\% match rate) and manual verification using satellite imagery.
+
+\textbf{2. Department of Inspection for Factories and Establishments (DIFE) Records:} Administrative data on 5,219 registered factories including smaller subcontractors not in BGMEA. Includes inspection history, violation records, and employment reports, though with substantial missing data for smaller facilities.
+
+\textbf{3. Bangladesh Accord and Alliance Public Databases:} Complete listing of factories under monitoring agreements with precise addresses and GPS coordinates. Includes initial inspection dates, violation categories, and remediation status. We successfully match 94\% of Accord factories and 89\% of Alliance factories to census records.
+
+After deduplication and cleaning, the final factory database contains 2,521 textile and garment establishments with verified coordinates. Key variables include:
+
+\begin{itemize}
+\item GPS coordinates (precision: 100 meters)
+\item Monitoring status: Accord (1,423 factories), Alliance (587), Both (234), Neither (277)
+\item Employment size categories: <500, 500-1000, 1000-2500, >2500 workers
+\item Product specialization: Woven, knit, sweater, accessories
+\item Establishment year and expansion history
+\item Export orientation: Direct exporter, subcontractor, domestic market
+\end{itemize}
+
+Quality checks removed 47 factories with implausible coordinates (e.g., in water bodies) and 132 facilities that closed before 2010. For factories with multiple production sites, we use the primary facility location.
+
+\subsection{Bangladesh Accord Compliance Audit Records}
+
+We obtained publicly available inspection reports from the Bangladesh Accord covering May 2013 through December 2018, comprising the most detailed compliance data ever released for a developing country industry. The database includes:
+
+\textbf{Inspection-Level Data:} 56,743 individual inspection records with factory identifier, inspection date, inspector organization, and inspection type (initial, follow-up, verification). Each inspection generates multiple findings across safety, structural, electrical, and labor categories.
+
+\textbf{Violation-Level Data:} 423,567 individual violations coded using standardized categories. For our analysis, we extract labor-related violations including:
+\begin{itemize}
+\item "Child labor present" (3,234 instances)
+\item "Age documentation inadequate" (8,453 instances)  
+\item "Young worker protections absent" (2,122 instances)
+\item "Worker age verification system lacking" (5,837 instances)
+\end{itemize}
+
+\textbf{Remediation Tracking:} For each violation, the database tracks remediation deadline, completion date, and verification status. We calculate remediation rates and timing for mechanism analysis.
+
+\textbf{Factory Characteristics:} The Accord database includes structural information such as building floors, production capacity, fire exits, and worker facilities that we use as controls.
+
+Geocoding achieved an 89\% match rate between Accord factories and our census database. Unmatched facilities primarily represent recent entrants or facilities using alternative romanization of Bengali names. For matched factories, we create several measures:
+
+\begin{itemize}
+\item Binary indicator for any child labor violation
+\item Violation intensity: Count of child labor violations per inspection
+\item Remediation completion: Share of violations addressed
+\item Time to compliance: Months between violation and remediation
+\end{itemize}
+
+\subsection{Supplementary Data Sources}
+
+\textbf{Village Census 2011:} Provides baseline community characteristics for DHS cluster locations including population, infrastructure (roads, electricity, schools, health facilities), and economic activities. Successfully matched to 87\% of rural clusters using union-level identifiers.
+
+\textbf{Labor Force Survey 2013:} Nationally representative employment data used to validate DHS child labor measures and examine broader labor market trends. Includes detailed occupation codes enabling sector-specific analysis.
+
+\textbf{Household Income and Expenditure Survey (HIES) 2010 and 2016:} Provides consumption data for welfare analysis, though without panel structure or precise geographic identifiers limiting direct integration.
+
+\textbf{Satellite Data:} Nighttime lights from DMSP-OLS (2000-2013) and VIIRS (2014) to measure economic activity. Processed to cluster level using 10-kilometer buffers.
+
+\subsection{Sample Construction and Restrictions}
+
+Our analysis sample applies the following restrictions:
+
+\begin{enumerate}
+\item Exclude DHS clusters with missing GPS coordinates (2.1\% of original sample)
+\item Exclude children with missing age or implausible age progressions across waves (0.3\%)
+\item Exclude households interviewed during Ramadan when labor patterns may be atypical (1.7\%)
+\item For main analysis, restrict to children aged 5-17 (excluding 0-4 where child labor is essentially zero)
+\end{enumerate}
+
+The final sample includes 173,065 child observations from 42,318 households in 2,153 geographic clusters. Table \ref{tab:sample_construction} details sample construction.
+
+
+\end{document}

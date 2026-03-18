@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+
+# Large datasets (too big for git)
+*.zip
+*.dat
+*.dat.gz
+*.dta
+*.raw
+*.sav
+DHS/
+Bangladesh 2006 MICS Datasets/
+Bangladesh_MICS5_Datasets/
+Bangladesh MICS6 SPSS Datasets/
+Enterprise Surveys Data/
+Results/DHS_imputed.csv
+Results/processed_data_for_child_analysis.csv
+Results/FINAL/DHS_imputed.csv
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,3 @@
+Brand,Coefficient_Basic,Std_Error_Basic,P_Value_Basic,Coefficient_Controls,Std_Error_Controls,P_Value_Controls,Sample_Size,N_Treated
+Walmart,-0.006889147447565013,,,-0.006889147447565013,,,173065,73372
+C&A,,,,,,,173065,37811
