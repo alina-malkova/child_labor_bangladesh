@@ -1,0 +1,17 @@
+Period,Treatment,Pay_Type,Count,Total_Workers,Percent
+Pre (2000-2011),Far,Cash,490,1544,31.73575129533679
+Pre (2000-2011),Far,In-kind,176,1544,11.398963730569948
+Pre (2000-2011),Far,Both cash and in-kind,115,1544,7.448186528497409
+Pre (2000-2011),Far,NIU (not in universe),0,1544,0.0
+Pre (2000-2011),Near,Cash,193,585,32.99145299145299
+Pre (2000-2011),Near,In-kind,28,585,4.786324786324787
+Pre (2000-2011),Near,Both cash and in-kind,66,585,11.282051282051283
+Pre (2000-2011),Near,NIU (not in universe),0,585,0.0
+Post (2014),Far,Cash,0,306,0.0
+Post (2014),Far,In-kind,0,306,0.0
+Post (2014),Far,Both cash and in-kind,0,306,0.0
+Post (2014),Far,NIU (not in universe),0,306,0.0
+Post (2014),Near,Cash,0,120,0.0
+Post (2014),Near,In-kind,0,120,0.0
+Post (2014),Near,Both cash and in-kind,0,120,0.0
+Post (2014),Near,NIU (not in universe),0,120,0.0

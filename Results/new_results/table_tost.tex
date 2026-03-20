@@ -1,0 +1,24 @@
+\begin{table}[H]
+\centering
+\caption{Equivalence Testing: Two One-Sided Tests (TOST) Procedure}
+\label{tab:tost}
+\begin{threeparttable}
+\begin{tabular}{lcccc}
+\toprule
+Equivalence Bound ($\pm\delta$) & $t$-stat (upper) & $t$-stat (lower) & $p$-value (TOST) & Reject $H_0$? \\
+\midrule
+$\pm$1 pp & -2.070 & 0.586 & 0.2801 & No \\
+$\pm$2 pp & -3.397 & 1.913 & 0.0301 & Yes \\
+$\pm$3 pp & -4.725 & 3.241 & 0.0010 & Yes \\
+$\pm$5 pp & -7.380 & 5.896 & 0.0000 & Yes \\
+\midrule
+Point estimate: $\hat{\beta} = -0.0056$, SE $= 0.0075$ & & & & \\
+Smallest equivalence bound rejected: $\pm$1.9 pp & & & & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: TOST procedure tests $H_0: |\beta| \geq \delta$ against $H_1: |\beta| < \delta$. ``Reject means we can conclude the true effect is smaller than $\pm\delta$ at 5\% significance. $p$-value (TOST) is the maximum of the two one-sided $p$-values. Degrees of freedom based on number of clusters minus one. Sample: ages 10--13.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

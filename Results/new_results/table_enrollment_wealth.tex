@@ -1,0 +1,24 @@
+\begin{table}[H]
+\centering
+\caption{School Enrollment Effects by Wealth Quintile (Ages 10--13)}
+\label{tab:enrollment_wealth}
+\begin{threeparttable}
+\begin{tabular}{lccccc}
+\toprule
+Wealth Group & Coefficient & SE & $p$-value & Mean DV & $N$ \\
+\midrule
+Poorest & 0.0329 & (0.0365) & 0.368 & 0.8536 & 6,415 \\
+Poorer & 0.0338 & (0.0206) & 0.101 & 0.9002 & 6,372 \\
+Middle & 0.0598*** & (0.0214) & 0.005 & 0.9281 & 6,090 \\
+Richer & 0.0471*** & (0.0166) & 0.004 & 0.9336 & 6,013 \\
+Richest & 0.0300 & (0.0191) & 0.117 & 0.9078 & 6,777 \\
+\midrule
+Middle+Richer & 0.0506*** & (0.0164) & 0.002 & 0.9308 & 12,103 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Separate DiD regressions for each wealth quintile, ages 10--13. Outcome: school enrollment (binary). Controls: age dummies, sex, household size. Standard errors clustered at district level. $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

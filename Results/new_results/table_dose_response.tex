@@ -1,0 +1,23 @@
+\begin{table}[H]
+\centering
+\caption{Dose-Response Analysis: Continuous Treatment Intensity}
+\label{tab:dose_response}
+\begin{threeparttable}
+\begin{tabular}{lccc}
+\toprule
+ & (1) & (2) & (3) \\
+ & Proximity Score & Log Distance & Factory Count (10km) \\
+\midrule
+Treatment $\times$ Post & $-0.0125$ & $0.0016$ & $-0.0031$ \\
+ & (0.0320) & (0.0037) & (0.0032) \\
+\\
+\midrule
+Observations & 32,017 & 32,017 & 32,042 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Column 1 uses proximity score ($1/(1+\text{distance})$). Column 2 uses log distance to nearest factory. Column 3 uses count of factories within 10km (based on distances to nearest, second-nearest, and third-nearest factories). All specifications include age FE, female, household size, and wealth controls. Standard errors clustered at district level. Ages 10--13. Significance: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

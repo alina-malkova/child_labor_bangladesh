@@ -1,0 +1,24 @@
+\begin{table}[H]
+\centering
+\caption{Heterogeneous Effects by Wealth Quintile: Ages 10-13}
+\label{tab:wealth_hetero}
+\begin{threeparttable}
+\begin{tabular}{lcccccc}
+\toprule
+& \multicolumn{3}{c}{Child Labor} & \multicolumn{3}{c}{School Enrollment} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+Wealth Quintile & Coeff. & SE & Mean & Coeff. & SE & Mean \\
+\midrule
+Poorest & $-0.0315$ & (0.0249) & 0.106 & $0.0329$ & (0.0365) & 0.854 \\
+Poorer & $-0.0104$ & (0.0256) & 0.073 & $0.0338$ & (0.0206) & 0.900 \\
+Middle & $0.0022$ & (0.0189) & 0.054 & $0.0598***$ & (0.0214) & 0.928 \\
+Richer & $0.0116$ & (0.0170) & 0.060 & $0.0471***$ & (0.0166) & 0.934 \\
+Richest & $0.0170$ & (0.0194) & 0.102 & $0.0300$ & (0.0191) & 0.908 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Each cell presents DiD estimates from separate regressions within each wealth quintile. Controls: age FE, female, household size. Standard errors clustered at district level. Significance: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

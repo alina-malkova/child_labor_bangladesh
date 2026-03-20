@@ -1,0 +1,21 @@
+\begin{table}[H]
+\centering
+\caption{Gender-Specific Treatment Effects (Ages 10--13)}
+\label{tab:gender_divergence}
+\begin{threeparttable}
+\begin{tabular}{llccccc}
+\toprule
+Gender & Outcome & Coefficient & SE & $p$-value & Mean DV & $N$ \\
+\midrule
+Boys & Child Labor & 0.0082 & (0.0121) & 0.495 & 0.1112 & 16,109 \\
+Boys & Enrollment & 0.0000 & (0.0119) & 0.999 & 0.8897 & 15,909 \\
+Girls & Child Labor & -0.0194 & (0.0121) & 0.107 & 0.0480 & 15,908 \\
+Girls & Enrollment & 0.0325** & (0.0130) & 0.012 & 0.9186 & 15,758 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Separate DiD regressions for boys and girls, ages 10--13. Controls: age dummies, household size, wealth quintile. Standard errors clustered at district level. $^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}

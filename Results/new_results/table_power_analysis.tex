@@ -1,0 +1,30 @@
+\begin{table}[H]
+\centering
+\caption{Minimum Detectable Effect and Comparison to Literature}
+\label{tab:power_analysis}
+\begin{threeparttable}
+\begin{tabular}{lcc}
+\toprule
+& Effect Size (pp) & Detectable? \\
+\midrule
+\multicolumn{3}{l}{\textit{Panel A: Study Parameters}} \\
+\quad Standard error of $\hat{\beta}_{DiD}$ & 0.75 & \\
+\quad MDE at 80\% power & 2.11 & \\
+\quad MDE at 90\% power & 2.44 & \\
+\quad Baseline child labor rate & 8.0 & \\
+\quad MDE as \% of baseline & 26\% & \\
+\\
+\midrule
+\multicolumn{3}{l}{\textit{Panel B: Benchmark Effects from Literature}} \\
+\quad CCT programs (Dehoop \& Rosati 2014) & 5--10 & Yes \\
+\quad Vietnam rice price (Edmonds 2005) & 6 & Yes \\
+\quad India trade (Edmonds 2010) & 3 & Yes \\
+\quad School construction (Ravallion 2000) & 3--5 & Yes \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: MDE computed as $(z_{\alpha/2} + z_\beta) \times SE$. Two-sided test at $\alpha = 0.05$. ``Detectable'' indicates whether the upper bound of the benchmark effect exceeds the MDE at 80\% power.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
