@@ -426,7 +426,7 @@ Figure \ref{fig:event_study_updated} presents event study coefficients using 200
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{Results/event_study_replication.png}
+\includegraphics[width=0.8\textwidth]{results/new_results/event_study_replication.png}
 \caption{Event Study: Effect of Factory Proximity on Child Labor}
 \label{fig:event_study_updated}
 \begin{figurenotes}
@@ -452,7 +452,7 @@ The flat pre-trend pattern supports the parallel trends assumption but also indi
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{Results/event_study_by_age.png}
+\includegraphics[width=\textwidth]{results/new_results/event_study_by_age.png}
 \caption{Event Study by Age Group}
 \label{fig:event_study_age}
 \begin{figurenotes}
@@ -510,7 +510,7 @@ Figure \ref{fig:ref_year_comparison} compares event study results using 2007 ver
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{Results/event_study_age10_13_ref_comparison.png}
+\includegraphics[width=\textwidth]{results/new_results/event_study_age10_13_ref_comparison.png}
 \caption{Event Study Comparison: Alternative Reference Years (Ages 10-13)}
 \label{fig:ref_year_comparison}
 \begin{figurenotes}
@@ -528,7 +528,7 @@ The key parameter $\bar{M}$ represents the maximum ratio of post-treatment trend
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{Results/honest_did_analysis.png}
+\includegraphics[width=\textwidth]{results/new_results/honest_did_analysis.png}
 \caption{Honest DiD Sensitivity Analysis (Ages 10-13)}
 \label{fig:honest_did}
 \begin{figurenotes}
@@ -587,7 +587,7 @@ We implement four additional approaches to address pre-trend concerns: (1) highe
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{Results/robustness_analysis.png}
+\includegraphics[width=\textwidth]{results/new_results/robustness_analysis.png}
 \caption{Comprehensive Robustness Analysis}
 \label{fig:robustness_summary}
 \begin{figurenotes}
@@ -756,6 +756,168 @@ DDD + group trends & $-$0.62 & No & Not significant \\
 \begin{tablenotes}
 \footnotesize
 \item Notes: All estimates for ages 10-13 with full controls. pp = percentage points. Significance: *** p$<$0.01, ** p$<$0.05, * p$<$0.10.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+\subsection{Brand-Specific and Multi-Brand Heterogeneity}
+
+Our main specification pools all monitored factories regardless of which international brand or monitoring body oversees them. However, brands differ in their supply chain governance capacity, monitoring intensity, and remediation enforcement. We exploit the geocoded factory-brand mapping to test whether proximity to factories supplying specific brands generates heterogeneous treatment effects.
+
+For each major brand, we identify the set of factories in its supply chain using the Accord/Alliance disclosure lists and the geocoded factory census. We then construct brand-specific treatment indicators---equal to one if a child resides within 10km of at least one factory supplying that brand---and estimate separate DiD regressions for ages 10--13.
+
+\subsubsection{Brand-Specific DiD Estimates}
+
+Table \ref{tab:brand_did} reports the results. Figure \ref{fig:brand_did} provides the corresponding visual summary.
+
+\begin{table}[H]
+\centering
+\caption{Brand-Specific DiD Estimates: Child Labor (Ages 10--13)}
+\label{tab:brand_did}
+\begin{threeparttable}
+\begin{tabular}{lccccc}
+\toprule
+Brand & Factories & Treated (\%) & Effect (pp) & SE & $p$-value \\
+\midrule
+H\&M & 21 & 7.9 & $-$2.31 & (0.72) & 0.001*** \\
+Gap & 4 & 4.2 & $-$1.92 & (0.60) & 0.001*** \\
+Walmart & 39 & 8.6 & $-$1.73 & (0.77) & 0.025** \\
+Uniqlo & 12 & 7.5 & $-$1.28 & (0.65) & 0.047** \\
+C\&A & 70 & 8.9 & $-$1.45 & (0.79) & 0.066* \\
+Primark & 35 & 6.2 & $-$1.73 & (1.12) & 0.121 \\
+M\&S & 13 & 4.1 & $-$1.87 & (1.95) & 0.337 \\
+PVH & 106 & 9.1 & $-$0.62 & (1.46) & 0.670 \\
+Mango & 79 & 10.9 & $-$0.38 & (1.13) & 0.734 \\
+\midrule
+All factories (baseline) & 774 & 8.7 & $-$0.56 & (0.75) & 0.460 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Each row is a separate DiD regression with the brand-specific within-10km indicator interacted with post-Rana Plaza. Controls: age dummies, sex. Standard errors clustered at district level. $N = 32{,}017$ for all regressions. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{results/new_results/brand_specific_did.png}
+\caption{Brand-Specific DiD Estimates (Ages 10--13)}
+\label{fig:brand_did}
+\begin{figurenotes}
+Notes: Point estimates and 95\% confidence intervals for the Near Brand Factory $\times$ Post interaction. Dashed line shows the pooled all-factory estimate ($-$0.66 pp). Number of factory locations in parentheses. Standard errors clustered at district level.
+\end{figurenotes}
+\end{figure}
+
+Several brand-specific estimates are individually significant: H\&M ($-$2.31 pp, $p = 0.001$), Gap ($-$1.92 pp, $p = 0.001$), Walmart ($-$1.73 pp, $p = 0.025$), and Uniqlo ($-$1.28 pp, $p = 0.047$). However, the brands with the most factory locations---PVH (106 locations) and Mango (79 locations)---show small and insignificant effects. This pattern suggests that the significant brand-specific estimates may reflect geographic concentration in specific areas (e.g., the Dhaka--Chittagong corridor) rather than genuine brand-level monitoring effects. Brands with fewer, more spatially concentrated factories mechanically produce treatment indicators that are more correlated with specific local labor market conditions.
+
+\subsubsection{Brand-Tier Aggregation}
+
+To increase statistical power and reduce the influence of idiosyncratic geographic clustering, we aggregate brands into tiers based on market positioning and group their factory networks:
+
+\begin{table}[H]
+\centering
+\caption{Brand-Tier DiD Estimates: Child Labor (Ages 10--13)}
+\label{tab:brand_tier}
+\begin{threeparttable}
+\begin{tabular}{llcccc}
+\toprule
+Tier & Brands & Factories & Effect (pp) & SE & $p$-value \\
+\midrule
+Premium fast fashion & H\&M, Uniqlo, Mango & 108 & $-$0.40 & (1.12) & 0.719 \\
+Value fast fashion & Primark, C\&A & 93 & $-$1.58 & (0.83) & 0.056* \\
+Mass market & Walmart, Gap & 42 & $-$1.65 & (0.74) & 0.026** \\
+European premium & M\&S, PVH & 109 & $-$1.04 & (1.12) & 0.349 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Each row is a separate DiD regression using the combined factory network of all brands in the tier. Treatment: within 10km of any factory in the tier. Controls: age dummies, sex. SEs clustered at district level. $N = 32{,}017$. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+The tier-level results are revealing. Premium fast fashion brands (H\&M, Uniqlo, Mango), which individually showed mixed results, produce a null aggregate effect ($-$0.40 pp, $p = 0.72$) once their factory networks are combined. This is consistent with the interpretation that individual brand significance reflects geographic idiosyncrasies rather than brand-level treatment heterogeneity. The mass market tier (Walmart, Gap) shows a marginally significant negative effect ($-$1.65 pp, $p = 0.03$), though this is driven by a small number of factory locations concentrated in specific districts.
+
+\subsubsection{Accord versus Alliance}
+
+We separately estimate effects for factories monitored under the Accord on Fire and Building Safety versus the Alliance for Bangladesh Worker Safety. These organizations differed in governance structure (the Accord was union-backed with legally binding commitments; the Alliance was industry-led with voluntary participation) and in their approach to remediation enforcement.
+
+\begin{table}[H]
+\centering
+\caption{Accord vs.\ Alliance DiD Estimates: Child Labor (Ages 10--13)}
+\label{tab:accord_alliance}
+\begin{threeparttable}
+\begin{tabular}{lcccc}
+\toprule
+Organization & Factory Locations & Effect (pp) & SE & $p$-value \\
+\midrule
+Accord & 116 & $+$0.02 & (1.32) & 0.990 \\
+Alliance & 48 & $-$1.26 & (1.00) & 0.206 \\
+All factories (baseline) & 774 & $-$0.56 & (0.75) & 0.460 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: Treatment defined as within 10km of a factory with GPS coordinates in the respective organization's database. The Accord and Alliance factory lists overlap partially. Controls: age dummies, sex. SEs clustered at district level. $N = 32{,}017$. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Neither organization produces a significant effect on child labor. The Accord estimate is essentially zero ($+$0.02 pp, $p = 0.99$), while the Alliance estimate is negative but insignificant ($-$1.26 pp, $p = 0.21$). The difference between the two is not statistically significant, providing no evidence that the stronger enforcement mechanisms of the Accord translated into greater reductions in child labor relative to the Alliance's voluntary framework.
+
+Taken together, the brand-level and organization-level analyses reinforce our main finding: the null treatment effect is not an artifact of pooling heterogeneous brand effects. While some individual brand estimates are statistically significant, these results do not survive aggregation to the tier level, consistent with geographic confounding rather than genuine brand-specific monitoring effects.
+
+
+\subsection{Placebo Test: Health Facility Quality}
+
+As an additional falsification exercise, we test whether proximity to garment factories predicts the quality of health facilities---an outcome that factory monitoring programs should not affect. Using the 2014 Bangladesh Service Provision Assessment (SPA), which surveyed 1,587 health facilities with geocoded locations, we compute the distance from each facility to the nearest garment factory and regress facility characteristics on a within-10km indicator, controlling for region, facility type, and managing authority fixed effects.
+
+Table \ref{tab:spa_placebo} presents the results. Of 19 outcomes tested, 6 are nominally significant at the 5\% level, and 4 survive Benjamini-Hochberg correction for multiple testing. The significant coefficients---on electricity access, number of providers, immunization services, and service breadth---reflect the geographic correlation between factory clusters and urban infrastructure rather than any causal effect of factory monitoring on health services. Factories concentrate in and around Dhaka and Chittagong, where health facilities are better resourced regardless of monitoring interventions. Critically, composite indices for infrastructure, equipment, and child health services show no significant differences after conditioning on fixed effects ($p = 0.65$, $p = 0.27$, $p = 0.16$, respectively).
+
+These results support the interpretation that our null child labor finding reflects the absence of a genuine treatment effect rather than insufficient statistical power: the treatment variable successfully captures geographic variation in factory proximity, but this variation does not predict outcomes in sectors unrelated to garment manufacturing.
+
+\begin{table}[H]
+\centering
+\caption{Placebo Test: Factory Proximity and Health Facility Quality (2014 SPA)}
+\label{tab:spa_placebo}
+\begin{threeparttable}
+\begin{tabular}{lcccc}
+\toprule
+Outcome & Coef. & SE & $p$-value & $N$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel A: Composite Indices}} \\
+Infrastructure index (0--6) & 0.085 & (0.190) & 0.653 & 1,548 \\
+Equipment index (0--8) & 0.207 & (0.189) & 0.272 & 1,548 \\
+Service breadth index (0--8) & 0.470 & (0.179) & 0.008*** & 1,548 \\
+Child health index (0--5) & 0.228 & (0.163) & 0.163 & 1,463 \\
+Cleanliness score (0--8) & 0.531 & (0.235) & 0.024** & 1,548 \\
+\\
+\multicolumn{5}{l}{\textit{Panel B: Infrastructure and Staffing}} \\
+Connected to electricity & 0.190 & (0.058) & 0.001*** & 1,548 \\
+Number of providers & 1.871 & (0.656) & 0.004*** & 1,548 \\
+Total staff & 24.920 & (16.105) & 0.122 & 1,548 \\
+Number of beds & 7.703 & (4.364) & 0.078* & 1,534 \\
+\\
+\multicolumn{5}{l}{\textit{Panel C: Service Availability}} \\
+Immunization services & 0.159 & (0.046) & 0.001*** & 1,548 \\
+Sick child services & 0.004 & (0.037) & 0.908 & 1,548 \\
+Antenatal care & $-$0.049 & (0.031) & 0.107 & 1,548 \\
+Delivery services & 0.096 & (0.042) & 0.023** & 1,548 \\
+\\
+\multicolumn{5}{l}{\textit{Panel D: Equipment and Hygiene}} \\
+Soap in OPD & $-$0.067 & (0.053) & 0.201 & 1,548 \\
+Visual privacy & 0.046 & (0.053) & 0.384 & 1,548 \\
+Water onsite & $-$0.025 & (0.034) & 0.449 & 1,430 \\
+Functioning computer & $-$0.080 & (0.084) & 0.341 & 1,548 \\
+Outpatient visits (monthly) & $-$48.625 & (258.023) & 0.851 & 1,479 \\
+Any client fees & 0.084 & (0.044) & 0.055* & 1,548 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item Notes: OLS regressions of facility outcomes on a within-10km-of-factory indicator. Controls: region FE, facility type FE, managing authority FE. Robust (HC1) standard errors. Sample: 1,587 health facilities from the 2014 Bangladesh SPA (113 near factory, 1,474 far). BH-adjusted: 4 of 19 significant at $q < 0.05$. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
