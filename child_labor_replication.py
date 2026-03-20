@@ -42,7 +42,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Set paths
-BASE_PATH = "/Users/amalkova/Library/CloudStorage/OneDrive-FloridaInstituteofTechnology/Child Labor"
+BASE_PATH = "/Users/amalkova/Library/CloudStorage/OneDrive-FloridaInstituteofTechnology/_Research/Labor_Economics/Child Labor"
 
 # ================================================================================
 # SECTION 1: DATA LOADING AND PREPROCESSING

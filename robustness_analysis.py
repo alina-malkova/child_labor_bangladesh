@@ -27,7 +27,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Set paths
-BASE_PATH = "/Users/amalkova/Library/CloudStorage/OneDrive-FloridaInstituteofTechnology/Child Labor"
+BASE_PATH = "/Users/amalkova/Library/CloudStorage/OneDrive-FloridaInstituteofTechnology/_Research/Labor_Economics/Child Labor"
 
 # ================================================================================
 # DATA LOADING
@@ -55,9 +55,12 @@ def load_data():
     df['near_x_time_sq'] = df['near_factory'] * df['time_sq']
     df['near_x_time_cu'] = df['near_factory'] * df['time_cu']
 
-    # Create district variable for clustering
-    if 'district_cluster' in df.columns:
-        df['district'] = df['district_cluster']
+    # Create district variable for clustering (geolev2 = 65 districts)
+    if 'geolev2' in df.columns:
+        df['district'] = df['geolev2']
+        # Drop observations without district assignment (needed for clustering)
+        df = df.dropna(subset=['district', 'child_labor', 'near_factory'])
+        df['district'] = df['district'].astype(int)
     elif 'clusternoall' in df.columns:
         df['district'] = df['clusternoall']
     else:
@@ -545,9 +548,11 @@ def run_triple_diff(df):
     df_full['near_factory'] = df_full['within_10km']
     df_full['post'] = df_full['post_rana']
 
-    # Create district variable for clustering
-    if 'district_cluster' in df_full.columns:
-        df_full['district'] = df_full['district_cluster']
+    # Create district variable for clustering (geolev2 = 65 districts)
+    if 'geolev2' in df_full.columns:
+        df_full['district'] = df_full['geolev2']
+        df_full = df_full.dropna(subset=['district', 'child_labor', 'near_factory'])
+        df_full['district'] = df_full['district'].astype(int)
     elif 'clusternoall' in df_full.columns:
         df_full['district'] = df_full['clusternoall']
     else:

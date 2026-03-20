@@ -35,17 +35,17 @@ from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
 GPS_DIR = BASE / "DHS" / "GPS"
-COLLECTION = "idhs"  # IPUMS DHS collection code
+COLLECTION = "dhs"  # IPUMS DHS collection code
 
-# Bangladesh DHS household-level samples
-# Format: "{country_code}{year}{record_type}" — H = household member
-# These IDs can be discovered via ipums.get_all_sample_info("idhs")
+# Bangladesh DHS household-member-level samples
+# Format: "{country_code}{year}{record_type}" — pr = Members
+# Discovered via ipums.get_all_sample_info("dhs")
 BANGLADESH_SAMPLES = [
-    "bd2000h",   # Bangladesh 1999-00 DHS, household members
-    "bd2004h",   # Bangladesh 2004 DHS
-    "bd2007h",   # Bangladesh 2007 DHS
-    "bd2011h",   # Bangladesh 2011 DHS
-    "bd2014h",   # Bangladesh 2014 DHS
+    "bd2000pr",  # Bangladesh 1999-00 DHS, members
+    "bd2004pr",  # Bangladesh 2004 DHS
+    "bd2007pr",  # Bangladesh 2007 DHS
+    "bd2011pr",  # Bangladesh 2011 DHS
+    "bd2014pr",  # Bangladesh 2014 DHS
 ]
 
 # Variables to request
@@ -73,97 +73,109 @@ def main():
             print("ERROR: No API key provided. Exiting.")
             sys.exit(1)
 
-    # --- Import ipumspy ---
-    try:
-        from ipumspy import IpumsApiClient, MicrodataExtract
-    except ImportError:
-        print("ERROR: ipumspy not installed. Run: pip install ipumspy")
-        sys.exit(1)
+    import requests
+    import json
+    import time
 
-    ipums = IpumsApiClient(api_key)
+    API_BASE = "https://api.ipums.org/extracts"
+    HEADERS = {"Authorization": api_key, "Content-Type": "application/json"}
 
-    # --- Discover available samples (optional, for debugging) ---
-    print(f"\nQuerying available samples for collection '{COLLECTION}'...")
-    try:
-        all_samples = ipums.get_all_sample_info(COLLECTION)
-        bd_samples = {k: v for k, v in all_samples.items()
-                      if k.startswith("bd")}
-        print(f"  Found {len(bd_samples)} Bangladesh samples:")
-        for sid, info in sorted(bd_samples.items()):
-            desc = info.get("description", str(info)) if isinstance(info, dict) else str(info)
-            print(f"    {sid}: {desc}")
-        print()
+    # --- Build extract payload ---
+    # Using raw API to avoid ipumspy bug with attachedCharacteristics on DHS
+    payload = {
+        "description": "Bangladesh DHS cluster GPS for child labor analysis",
+        "dataFormat": "csv",
+        "dataStructure": {"rectangular": {"on": "P"}},
+        "samples": {s: {} for s in BANGLADESH_SAMPLES},
+        "variables": {v: {} for v in GPS_VARIABLES},
+    }
 
-        # Validate our requested samples exist
-        for s in BANGLADESH_SAMPLES:
-            if s not in all_samples:
-                print(f"  WARNING: Sample '{s}' not found in API. "
-                      f"Will try anyway.")
-    except Exception as e:
-        print(f"  Could not query sample metadata: {e}")
-        print("  Proceeding with predefined sample IDs...\n")
-
-    # --- Create extract ---
-    print("Creating IPUMS DHS extract request...")
+    print(f"\nSubmitting IPUMS DHS extract...")
     print(f"  Collection: {COLLECTION}")
     print(f"  Samples: {BANGLADESH_SAMPLES}")
     print(f"  Variables: {GPS_VARIABLES}")
 
-    extract = MicrodataExtract(
-        collection=COLLECTION,
-        description="Bangladesh DHS cluster GPS coordinates for child labor analysis",
-        samples=BANGLADESH_SAMPLES,
-        variables=GPS_VARIABLES,
-        data_format="csv",
+    # --- Submit ---
+    r = requests.post(
+        f"{API_BASE}?collection={COLLECTION}&version=2",
+        headers=HEADERS,
+        json=payload,
     )
 
-    # --- Submit ---
-    print("\nSubmitting extract request...")
-    try:
-        ipums.submit_extract(extract)
-    except Exception as e:
-        error_msg = str(e)
-        if "unauthorized" in error_msg.lower() or "permission" in error_msg.lower():
-            print(f"\nERROR: {e}")
-            print("\nThis likely means you don't have DHS GPS authorization.")
-            print("Apply at: https://dhsprogram.com/data/Access-Instructions.cfm")
-            print("Once approved, re-run this script.")
-        elif "sample" in error_msg.lower():
-            print(f"\nERROR: {e}")
-            print("\nSample IDs may be incorrect. Trying to list valid IDs...")
-            _try_list_samples(ipums)
+    if r.status_code == 403:
+        data = r.json()
+        detail = data.get("detail", str(data))
+        print(f"\n  ERROR 403 Forbidden: {detail}")
+        if "Gps" in data.get("type", "") or "GPS" in str(detail):
+            print("\n  You do NOT have DHS GPS authorization for these samples.")
+            print("  To fix this:")
+            print("    1. Go to https://dhsprogram.com/data/Access-Instructions.cfm")
+            print("    2. Log in with your DHS account")
+            print("    3. Request access to Geographic Datasets for Bangladesh")
+            print("    4. Wait for approval (typically 24-48 hours)")
+            print("    5. Re-run this script")
+        sys.exit(1)
+    elif r.status_code != 200:
+        print(f"\n  ERROR {r.status_code}: {r.text[:500]}")
+        sys.exit(1)
+
+    extract_data = r.json()
+    extract_id = extract_data.get("number")
+    print(f"  Extract submitted! ID: {extract_id}")
+
+    # --- Wait for completion ---
+    print("\nWaiting for extract to complete...")
+    for attempt in range(120):  # up to 10 minutes
+        time.sleep(5)
+        status_r = requests.get(
+            f"{API_BASE}/{extract_id}?collection={COLLECTION}&version=2",
+            headers=HEADERS,
+        )
+        if status_r.status_code != 200:
+            print(f"  Status check error: {status_r.status_code}")
+            continue
+
+        status_data = status_r.json()
+        status = status_data.get("status", "unknown")
+
+        if status == "completed":
+            print(f"  Extract ready! (took ~{(attempt+1)*5}s)")
+            break
+        elif status in ("failed", "canceled"):
+            print(f"  Extract {status}!")
+            print(f"  Details: {json.dumps(status_data, indent=2)[:500]}")
+            sys.exit(1)
         else:
-            print(f"\nERROR submitting extract: {e}")
+            if attempt % 6 == 0:  # print every 30s
+                print(f"  Status: {status}...")
+    else:
+        print("  Timed out waiting for extract (10 minutes).")
+        print(f"  Check manually: extract ID {extract_id}")
         sys.exit(1)
-
-    print(f"  Extract submitted! ID: {extract.extract_id}")
-
-    # --- Wait ---
-    print("\nWaiting for extract to complete (this may take a few minutes)...")
-    try:
-        ipums.wait_for_extract(extract, timeout=600)
-    except Exception as e:
-        print(f"\nERROR waiting for extract: {e}")
-        print(f"  You can check status later with extract ID: {extract.extract_id}")
-        sys.exit(1)
-
-    print("  Extract complete!")
 
     # --- Download ---
     GPS_DIR.mkdir(parents=True, exist_ok=True)
+    download_links = status_data.get("downloadLinks", {})
     print(f"\nDownloading to {GPS_DIR}...")
-    try:
-        ipums.download_extract(extract, download_dir=GPS_DIR)
-    except Exception as e:
-        print(f"\nERROR downloading: {e}")
-        sys.exit(1)
 
-    # --- Find and report downloaded files ---
+    for link_name, url in download_links.items():
+        fname = url.split("/")[-1].split("?")[0]
+        if not fname:
+            fname = f"dhs_extract_{extract_id}_{link_name}"
+        fpath = GPS_DIR / fname
+        print(f"  Downloading {fname}...")
+        dr = requests.get(url, headers={"Authorization": api_key}, stream=True)
+        dr.raise_for_status()
+        with open(fpath, "wb") as f:
+            for chunk in dr.iter_content(chunk_size=8192):
+                f.write(chunk)
+        print(f"    Saved: {fpath.name} ({fpath.stat().st_size:,} bytes)")
+
+    # --- List all downloaded files ---
     downloaded = list(GPS_DIR.glob("*"))
-    print(f"\n  Downloaded {len(downloaded)} files:")
-    for f in downloaded:
-        size = f.stat().st_size
-        print(f"    {f.name}  ({size:,} bytes)")
+    print(f"\n  Total files in {GPS_DIR.name}/: {len(downloaded)}")
+    for f in sorted(downloaded):
+        print(f"    {f.name}  ({f.stat().st_size:,} bytes)")
 
     # --- Try to read and verify ---
     _verify_download(GPS_DIR)
@@ -172,22 +184,6 @@ def main():
     print("DOWNLOAD COMPLETE")
     print("=" * 70)
     print(f"\nNext step: python fix_gps_merge.py")
-
-
-def _try_list_samples(ipums):
-    """Try to list valid Bangladesh sample IDs."""
-    try:
-        all_samples = ipums.get_all_sample_info(COLLECTION)
-        bd_samples = {k: v for k, v in all_samples.items()
-                      if k.startswith("bd")}
-        if bd_samples:
-            print("\nValid Bangladesh sample IDs:")
-            for sid in sorted(bd_samples.keys()):
-                print(f"  {sid}")
-            print(f"\nUpdate BANGLADESH_SAMPLES in this script with "
-                  f"the correct IDs and re-run.")
-    except Exception:
-        print("Could not retrieve sample list.")
 
 
 def _verify_download(download_dir):
